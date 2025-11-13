@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión y Tecnología | Pedagogía</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #020817;
+            color: #0f172a;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; }
+
+        /* HEADER (misma línea visual) */
+        .header {
+            background: linear-gradient(135deg, #16a34a 0%, #22c55e 35%, #14b8a6 70%, #38bdf8 100%);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 18px rgba(0,0,0,0.25);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 14px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+        }
+
+        .logo-img {
+            width: 62px;
+            height: auto;
+            border-radius: 10px;
+            object-fit: contain;
+            background-color: white;
+            padding: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+        }
+
+        .logo-text h1 {
+            font-size: 1.02em;
+            font-weight: 600;
+        }
+
+        .logo-text p {
+            font-size: 0.72em;
+            opacity: 0.9;
+        }
+
+        .menu {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .menu-item { position: relative; }
+
+        .menu-link {
+            color: #fff;
+            font-weight: 500;
+            font-size: 0.92em;
+            padding: 6px 0;
+            display: inline-block;
+            transition: all 0.25s ease;
+        }
+
+        .menu-link:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .menu-link.active {
+            border-bottom: 2px solid #facc15;
+        }
+
+        .submenu {
+            position: absolute;
+            top: 100%;
+            left: -20px;
+            background: #ffffff;
+            min-width: 260px;
+            box-shadow: 0 12px 40px rgba(15,23,42,0.25);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.25s ease;
+            border-radius: 10px;
+            margin-top: 10px;
+            padding: 10px 0;
+            z-index: 1200;
+        }
+
+        .menu-item:hover .submenu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .submenu li { list-style: none; }
+
+        .submenu a {
+            display: block;
+            padding: 10px 22px;
+            font-size: 0.88em;
+            color: #111827;
+            transition: all 0.2s ease;
+        }
+
+        .submenu a:hover {
+            background: #e5f9f0;
+            color: #16a34a;
+            padding-left: 28px;
+        }
+
+        /* HERO */
+        .hero-gt {
+            position: relative;
+            min-height: 430px;
+            background:
+                radial-gradient(circle at 0 0, rgba(45,212,191,0.22), transparent 55%),
+                radial-gradient(circle at 100% 0, rgba(74,222,128,0.26), transparent 55%),
+                linear-gradient(135deg, #022c22, #052e16 55%, #020817 100%);
+            overflow: hidden;
+            color: #e5e7eb;
+        }
+
+        .hero-gt-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 70px 40px 40px;
+            display: grid;
+            grid-template-columns: 1.7fr 1.3fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .hero-kicker {
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: #22c55e;
+            margin-bottom: 6px;
+        }
+
+        .hero-gt h1 {
+            font-size: 2.7em;
+            font-weight: 700;
+            line-height: 1.18;
+            margin-bottom: 10px;
+        }
+
+        .hero-gt p {
+            font-size: 1em;
+            max-width: 620px;
+            line-height: 1.8;
+            color: #bfdbfe;
+        }
+
+        .hero-tags {
+            margin-top: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .hero-tag {
+            font-size: 0.78em;
+            padding: 6px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 239, 196, 0.8);
+            color: #bbf7d0;
+            backdrop-filter: blur(6px);
+        }
+
+        .hero-right {
+            position: relative;
+            align-self: stretch;
+            display: grid;
+            gap: 10px;
+            padding: 16px;
+            border-radius: 22px;
+            background: radial-gradient(circle at 0 0, rgba(34,197,94,0.16), transparent),
+                        rgba(3,7,18,0.98);
+            box-shadow: 0 18px 50px rgba(0,0,0,0.9);
+            overflow: hidden;
+        }
+
+        .hero-label {
+            font-size: 0.74em;
+            color: #9ca3af;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .hero-right h2 {
+            font-size: 1.22em;
+            color: #e5e7eb;
+        }
+
+        .hero-right p {
+            font-size: 0.86em;
+            color: #9ca3af;
+        }
+
+        .hero-metrics {
+            display: flex;
+            gap: 18px;
+            margin-top: 4px;
+        }
+
+        .metric {
+            flex: 1;
+        }
+
+        .metric span {
+            display: block;
+        }
+
+        .metric .num {
+            font-size: 1.35em;
+            font-weight: 600;
+            color: #22c55e;
+        }
+
+        .metric .label {
+            font-size: 0.7em;
+            color: #9ca3af;
+        }
+
+        .hero-stack {
+            display: grid;
+            grid-template-columns: 1.6fr 1.4fr;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .mini-card {
+            background: linear-gradient(145deg, rgba(22,163,74,0.08), rgba(15,23,42,1));
+            border-radius: 14px;
+            padding: 8px 10px;
+            border: 1px solid rgba(22,163,74,0.32);
+            font-size: 0.7em;
+            color: #9ca3af;
+            display: grid;
+            gap: 2px;
+        }
+
+        .mini-card strong {
+            color: #bbf7d0;
+            font-weight: 600;
+        }
+
+        .hero-cta {
+            margin-top: 6px;
+        }
+
+        .hero-cta a {
+            display: inline-block;
+            padding: 8px 18px;
+            border-radius: 999px;
+            font-size: 0.8em;
+            color: #020817;
+            font-weight: 600;
+            background: linear-gradient(135deg,#22c55e,#a7f3d0);
+            box-shadow: 0 10px 26px rgba(0,0,0,0.9);
+            transition: all 0.25s ease;
+        }
+
+        .hero-cta a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 34px rgba(0,0,0,1);
+        }
+
+        /* SECCIONES GENERALES */
+        .section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 55px 40px 35px;
+            position: relative;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .section-kicker {
+            font-size: 0.78em;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #16a34a;
+            margin-bottom: 4px;
+        }
+
+        .section-title {
+            font-size: 1.9em;
+            color: #022c22;
+        }
+
+        .section-subtitle {
+            font-size: 0.92em;
+            color: #4b5563;
+            max-width: 540px;
+            line-height: 1.8;
+        }
+
+        .pill-note {
+            font-size: 0.78em;
+            padding: 5px 12px;
+            border-radius: 999px;
+            background: #ecfdf5;
+            color: #15803d;
+            align-self: flex-start;
+        }
+
+        /* HERRAMIENTAS DIGITALES */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: minmax(0,1.5fr) minmax(0,1.5fr);
+            gap: 24px;
+            align-items: stretch;
+        }
+
+        .card-soft {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 20px 20px 18px;
+            box-shadow: 0 16px 40px rgba(15,23,42,0.08);
+            border: 1px solid #e5e7eb;
+            display: grid;
+            gap: 8px;
+        }
+
+        .card-soft h3 {
+            font-size: 1.14em;
+            color: #111827;
+        }
+
+        .card-soft p {
+            font-size: 0.9em;
+            color: #4b5563;
+            line-height: 1.7;
+        }
+
+        .chip-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 4px;
+        }
+
+        .chip {
+            font-size: 0.72em;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: #ecfdf5;
+            color: #16a34a;
+        }
+
+        .tools-gallery {
+            display: grid;
+            grid-template-columns: repeat(2,minmax(0,1fr));
+            gap: 10px;
+        }
+
+        .tools-img {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            height: 115px;
+            background: #0f172a;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .tools-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: saturate(1.05);
+            transition: all 0.25s ease;
+        }
+
+        .tools-img:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 14px 34px rgba(15,23,42,0.5);
+        }
+
+        .tools-img:hover img {
+            transform: scale(1.06);
+            filter: saturate(1.2);
+        }
+
+        .tools-label {
+            position: absolute;
+            left: 8px;
+            bottom: 6px;
+            font-size: 0.65em;
+            padding: 3px 8px;
+            border-radius: 999px;
+            background: rgba(0,0,0,0.85);
+            color: #bbf7d0;
+        }
+
+        /* CONTENIDOS DIGITALES */
+        .content-grid {
+            display: grid;
+            grid-template-columns: minmax(0,1.6fr) minmax(0,1.4fr);
+            gap: 24px;
+            align-items: stretch;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.72em;
+            padding: 4px 9px;
+            border-radius: 999px;
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .content-points {
+            display: grid;
+            gap: 6px;
+            margin-top: 8px;
+            font-size: 0.88em;
+            color: #4b5563;
+        }
+
+        .content-points span::before {
+            content: "• ";
+            color: #22c55e;
+            font-weight: bold;
+        }
+
+        .content-gallery {
+            background: linear-gradient(145deg,#ecfdf5,#e0f2fe);
+            border-radius: 18px;
+            padding: 12px;
+            display: grid;
+            grid-template-columns: repeat(2,minmax(0,1fr));
+            gap: 8px;
+            box-shadow: 0 16px 40px rgba(15,23,42,0.14);
+        }
+
+        .content-img {
+            position: relative;
+            border-radius: 14px;
+            overflow: hidden;
+            height: 105px;
+        }
+
+        .content-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.25s ease;
+        }
+
+        .content-img:hover img {
+            transform: scale(1.06);
+            filter: saturate(1.18);
+        }
+
+        .content-label {
+            position: absolute;
+            left: 8px;
+            bottom: 6px;
+            padding: 3px 8px;
+            font-size: 0.65em;
+            border-radius: 999px;
+            background: rgba(22,101,52,0.96);
+            color: #ecfdf5;
+        }
+
+        /* EVALUACIÓN DIGITAL */
+        .eval-grid {
+            display: grid;
+            grid-template-columns: repeat(4,minmax(0,1fr));
+            gap: 16px;
+        }
+
+        .eval-card {
+            background: #0f172a;
+            color: #e5e7eb;
+            border-radius: 16px;
+            padding: 14px 12px 12px;
+            box-shadow: 0 16px 36px rgba(0,0,0,0.9);
+            border: 1px solid rgba(22,163,74,0.35);
+            font-size: 0.78em;
+            display: grid;
+            gap: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .eval-card strong {
+            font-size: 0.86em;
+            color: #bbf7d0;
+        }
+
+        .eval-card span {
+            color: #9ca3af;
+            line-height: 1.6;
+        }
+
+        .eval-card::after {
+            content: "";
+            position: absolute;
+            inset: auto -10px 0;
+            height: 2px;
+            background: linear-gradient(90deg,#22c55e,#22d3ee);
+            opacity: 0;
+            transform: translateY(4px);
+            transition: all 0.25s ease;
+        }
+
+        .eval-card:hover::after {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .eval-img {
+            grid-column: span 2;
+            border-radius: 16px;
+            overflow: hidden;
+            height: 130px;
+            background: #111827;
+        }
+
+        .eval-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: saturate(1.05);
+            transition: all 0.25s ease;
+        }
+
+        .eval-img:hover img {
+            transform: scale(1.05);
+            filter: saturate(1.18);
+        }
+
+        /* PEDAGOGÍAS EMERGENTES */
+        .emergent-section {
+            max-width: 1400px;
+            margin: 10px auto 0;
+            padding: 26px 40px 26px;
+        }
+
+        .emergent-wrap {
+            border-radius: 24px;
+            padding: 20px 22px 18px;
+            display: grid;
+            grid-template-columns: minmax(0,1.5fr) minmax(0,1.5fr);
+            gap: 20px;
+            background:
+                radial-gradient(circle at 0 0,rgba(22,163,74,0.22),transparent),
+                radial-gradient(circle at 100% 0,rgba(56,189,248,0.18),transparent),
+                linear-gradient(135deg,#022c22,#020817);
+            color: #e5e7eb;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.9);
+        }
+
+        .emergent-wrap h2 {
+            font-size: 1.6em;
+            margin-bottom: 4px;
+        }
+
+        .emergent-wrap p {
+            font-size: 0.9em;
+            color: #bfdbfe;
+            line-height: 1.8;
+        }
+
+        .emergent-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .emergent-tag {
+            font-size: 0.7em;
+            padding: 4px 9px;
+            border-radius: 999px;
+            background: rgba(22,163,74,0.18);
+            border: 1px solid rgba(134,239,172,0.6);
+            color: #bbf7d0;
+        }
+
+        .emergent-gallery {
+            display: grid;
+            grid-template-columns: repeat(2,minmax(0,1fr));
+            gap: 8px;
+        }
+
+        .emergent-img {
+            position: relative;
+            border-radius: 14px;
+            overflow: hidden;
+            height: 95px;
+        }
+
+        .emergent-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.25s ease;
+        }
+
+        .emergent-img:hover img {
+            transform: scale(1.05);
+            filter: saturate(1.2);
+        }
+
+        .emergent-label {
+            position: absolute;
+            left: 6px;
+            bottom: 5px;
+            padding: 3px 7px;
+            font-size: 0.6em;
+            border-radius: 999px;
+            background: rgba(2,6,23,0.96);
+            color: #bbf7d0;
+        }
+
+        /* DESARROLLO PROFESIONAL */
+        .dev-section {
+            max-width: 1400px;
+            margin: 5px auto 40px;
+            padding: 40px 40px 26px;
+        }
+
+        .dev-grid {
+            display: grid;
+            grid-template-columns: minmax(0,1.7fr) minmax(0,1.3fr);
+            gap: 24px;
+            align-items: stretch;
+        }
+
+        .dev-text {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 20px 20px 18px;
+            box-shadow: 0 18px 45px rgba(15,23,42,0.12);
+            border: 1px solid #e5e7eb;
+            display: grid;
+            gap: 8px;
+        }
+
+        .dev-text h3 {
+            font-size: 1.18em;
+            color: #111827;
+        }
+
+        .dev-text p {
+            font-size: 0.9em;
+            color: #4b5563;
+            line-height: 1.7;
+        }
+
+        .dev-list {
+            display: grid;
+            gap: 4px;
+            font-size: 0.84em;
+            color: #374151;
+        }
+
+        .dev-list span::before {
+            content: "✔ ";
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        .dev-gallery {
+            display: grid;
+            grid-template-columns: repeat(2,minmax(0,1fr));
+            gap: 8px;
+        }
+
+        .dev-img {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            height: 105px;
+            background: #0f172a;
+        }
+
+        .dev-img.large {
+            grid-column: span 2;
+            height: 115px;
+        }
+
+        .dev-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.25s ease;
+        }
+
+        .dev-img:hover img {
+            transform: scale(1.06);
+            filter: saturate(1.18);
+        }
+
+        .dev-label {
+            position: absolute;
+            left: 8px;
+            bottom: 6px;
+            padding: 3px 8px;
+            font-size: 0.64em;
+            border-radius: 999px;
+            background: rgba(15,23,42,0.96);
+            color: #bbf7d0;
+        }
+
+        /* CTA FINAL */
+        .gt-cta-bottom {
+            max-width: 1400px;
+            margin: 0 auto 40px;
+            padding: 18px 40px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 18px;
+            background:
+                radial-gradient(circle at 0 0,rgba(22,163,74,0.22),transparent),
+                radial-gradient(circle at 100% 0,rgba(45,212,191,0.18),transparent),
+                #020817;
+            color: #e5e7eb;
+            border-radius: 22px;
+            box-shadow: 0 18px 48px rgba(0,0,0,0.95);
+        }
+
+        .gt-cta-bottom p {
+            font-size: 0.88em;
+            max-width: 640px;
+            color: #9ca3af;
+        }
+
+        .gt-cta-bottom strong {
+            color: #e5e7eb;
+        }
+
+        .gt-cta-bottom a {
+            padding: 9px 22px;
+            border-radius: 999px;
+            background: #22c55e;
+            color: #020817;
+            font-weight: 600;
+            font-size: 0.84em;
+            box-shadow: 0 14px 40px rgba(0,0,0,1);
+            transition: all 0.25s ease;
+        }
+
+        .gt-cta-bottom a:hover {
+            transform: translateY(-2px);
+            background: #16a34a;
+            color: #f9fafb;
+        }
+
+        /* Reveal animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: all 0.6s ease-out;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        .footer {
+            background: #020817;
+            color: #6b7280;
+            padding: 22px 40px 24px;
+            text-align: center;
+            font-size: 0.78em;
+        }
+
+        @media (max-width: 980px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .hero-gt-grid {
+                grid-template-columns: 1fr;
+                padding-top: 70px;
+            }
+            .hero-right {
+                order: -1;
+            }
+            .section,
+            .emergent-section,
+            .dev-section,
+            .gt-cta-bottom {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .tools-grid,
+            .content-grid,
+            .emergent-wrap,
+            .dev-grid {
+                grid-template-columns: 1fr;
+            }
+            .eval-grid {
+                grid-template-columns: repeat(2,minmax(0,1fr));
+            }
+            .gt-cta-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="nav-container">
+        <div class="logo">
+            <img src="LOGO.JPG" alt="Logo Carrera de Pedagogía" class="logo-img">
+            <div class="logo-text">
+                <h1>PEDAGOGÍA 4to CUATRIMESTRE</h1>
+                <p>Proyecto Integrador 26-1</p>
+            </div>
+        </div>
+        <nav>
+            <ul class="menu">
+                <li class="menu-item"><a href="index.html" class="menu-link">Inicio</a></li>
+
+                <li class="menu-item">
+                    <a href="educacional.html" class="menu-link">Educación Formal</a>
+                    <ul class="submenu">
+                        <li><a href="educacional.html#escuela-formal">Escuela formal</a></li>
+                        <li><a href="educacional.html#educacion-especial">Educación especial</a></li>
+                        <li><a href="educacional.html#investigacion-politicas">Investigación y políticas</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item">
+                    <a href="gestion-tecnologia.html" class="menu-link active">Tecnología en la Gestión Educativa</a>
+                    <ul class="submenu">
+                        <li><a href="#herramientas">Herramientas digitales</a></li>
+                        <li><a href="#contenidos">Contenidos digitales</a></li>
+                        <li><a href="#evaluacion">Evaluación digital</a></li>
+                        <li><a href="#pedagogias">Pedagogías emergentes</a></li>
+                        <li><a href="#desarrollo">Desarrollo profesional</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item">
+                    <a href="organizacional.html" class="menu-link">Organizacional</a>
+                    <ul class="submenu">
+                        <li><a href="organizacional.html#rrhh">Recursos humanos</a></li>
+                        <li><a href="organizacional.html#capacitacion">Capacitación</a></li>
+                        <li><a href="organizacional.html#cambio">Gestión del cambio</a></li>
+                        <li><a href="organizacional.html#cultura">Cultura institucional</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item">
+                    <a href="socio-comunitario.html" class="menu-link">Socio-Comunitario</a>
+                    <ul class="submenu">
+                        <li><a href="socio-comunitario.html#salud">Sector salud</a></li>
+                        <li><a href="socio-comunitario.html#servicio">Servicio comunitario</a></li>
+                        <li><a href="socio-comunitario.html#reinsercion">Reinserción social</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item">
+                    <a href="encuesta.html" class="menu-link">Encuesta</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- HERO -->
+<section class="hero-gt">
+    <div class="hero-gt-grid">
+        <div>
+            <div class="hero-kicker">Gestión y Tecnología Educativa</div>
+            <h1>Innovación digital para aprender, evaluar y gestionar con propósito.</h1>
+            <p>
+                Esta área integra plataformas, herramientas y estrategias tecnológicas que
+                fortalecen la labor del pedagogo: diseño de contenidos, evaluación en línea,
+                analítica educativa y comunidades de aprendizaje conectadas.
+            </p>
+            <div class="hero-tags">
+                <div class="hero-tag">Herramientas digitales</div>
+                <div class="hero-tag">Contenidos interactivos</div>
+                <div class="hero-tag">Evaluación en línea</div>
+                <div class="hero-tag">Pedagogías emergentes</div>
+                <div class="hero-tag">Comunidades profesionales</div>
+            </div>
+        </div>
+
+        <div class="hero-right">
+            <div class="hero-label">Ecosistema digital del pedagogo</div>
+            <h2>Del aula tradicional a experiencias híbridas, colaborativas y medibles.</h2>
+            <p>
+                La gestión pedagógica apoyada en tecnología permite acompañar mejor a los estudiantes,
+                personalizar procesos y tomar decisiones con datos reales.
+            </p>
+            <div class="hero-metrics">
+                <div class="metric">
+                    <span class="num">+15</span>
+                    <span class="label">Plataformas y apps educativas integradas</span>
+                </div>
+                <div class="metric">
+                    <span class="num">+80%</span>
+                    <span class="label">Uso proyectado en prácticas y proyectos</span>
+                </div>
+            </div>
+            <div class="hero-stack">
+                <div class="mini-card">
+                    <strong>Diseño instruccional digital</strong>
+                    <span>Secuencias interactivas, video, recursos visuales y accesibles.</span>
+                </div>
+                <div class="mini-card">
+                    <strong>Analítica educativa</strong>
+                    <span>Seguimiento de progreso para intervenir a tiempo.</span>
+                </div>
+            </div>
+            <div class="hero-cta">
+                <a href="#herramientas">Explorar el ecosistema</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- HERRAMIENTAS DIGITALES -->
+<section class="section" id="herramientas">
+    <div class="section-header">
+        <div>
+            <div class="section-kicker">Herramientas digitales</div>
+            <h2 class="section-title">Plataformas que amplifican el alcance del pedagogo.</h2>
+            <p class="section-subtitle">
+                Uso estratégico de videoconferencias, gestores de contenidos y aplicaciones
+                colaborativas para planear, acompañar y comunicar procesos educativos en tiempo real.
+            </p>
+        </div>
+        <div class="pill-note">
+            Integración • Accesibilidad • Trabajo colaborativo
+        </div>
+    </div>
+
+    <div class="tools-grid">
+        <div class="card-soft reveal">
+            <h3>Gestión pedagógica desde entornos digitales</h3>
+            <p>
+                El pedagogo selecciona y organiza herramientas que facilitan la comunicación con estudiantes,
+                familias y equipos docentes. No se trata solo de usar tecnología, sino de darle sentido didáctico.
+            </p>
+            <div class="chip-row">
+                <div class="chip">Videoclases y tutorías en línea</div>
+                <div class="chip">Gestores de aula virtual</div>
+                <div class="chip">Organización de recursos</div>
+                <div class="chip">Seguimiento de participación</div>
+            </div>
+        </div>
+
+        <div class="tools-gallery reveal">
+            <!-- tec1, tec2 -->
+            <div class="tools-img">
+                <img src="tec1.jpg" alt="Herramientas digitales para clases en línea">
+                <div class="tools-label">Entornos virtuales</div>
+            </div>
+            <div class="tools-img">
+                <img src="tec2.jpg" alt="Persona interactuando con múltiples aplicaciones">
+                <div class="tools-label">Apps educativas</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTENIDOS EDUCATIVOS DIGITALES -->
+<section class="section" id="contenidos">
+    <div class="section-header">
+        <div>
+            <div class="section-kicker">Contenidos educativos digitales</div>
+            <h2 class="section-title">Diseño visual, creativo e inclusivo para aprender mejor.</h2>
+            <p class="section-subtitle">
+                Creación de recursos multimedia, cápsulas, infografías y materiales interactivos
+                alineados al plan de estudios, con lenguaje claro y enfoque accesible.
+            </p>
+        </div>
+        <div class="pill-note">
+            Narrativas visuales • UX educativa • Inclusión digital
+        </div>
+    </div>
+
+    <div class="content-grid">
+        <div class="card-soft reveal">
+            <span class="badge">Rol del pedagogo digital</span>
+            <p>
+                Transforma contenidos tradicionales en experiencias dinámicas. Define objetivos,
+                estructura la información y elige formatos que conectan con las y los estudiantes.
+            </p>
+            <div class="content-points">
+                <span>Uso pedagógico de herramientas como Canva, presentaciones y video.</span>
+                <span>Materiales adaptados a distintos estilos y ritmos de aprendizaje.</span>
+                <span>Diseño de secuencias interactivas para trabajo autónomo y colaborativo.</span>
+            </div>
+        </div>
+
+        <div class="content-gallery reveal">
+            <!-- tec3, tec4, tec5 -->
+            <div class="content-img">
+                <img src="tec3.jpg" alt="Diseño gráfico educativo en computadora">
+                <div class="content-label">Contenidos visuales</div>
+            </div>
+            <div class="content-img">
+                <img src="tec4.jpg" alt="Presentación con datos y gráficos">
+                <div class="content-label">Datos comprensibles</div>
+            </div>
+            <div class="content-img">
+                <img src="tec5.jpg" alt="Espacio creativo con múltiples dispositivos">
+                <div class="content-label">Entorno creativo</div>
+            </div>
+            <div class="content-img">
+                <img src="tec9.jpg" alt="Íconos y recursos digitales educativos">
+                <div class="content-label">Recursos abiertos</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- EVALUACIÓN DIGITAL -->
+<section class="section" id="evaluacion">
+    <div class="section-header">
+        <div>
+            <div class="section-kicker">Evaluación digital y retroalimentación</div>
+            <h2 class="section-title">Medir para acompañar, no solo para calificar.</h2>
+            <p class="section-subtitle">
+                Plataformas y dashboards permiten monitorear avances, detectar rezagos
+                y ofrecer retroalimentación oportuna y personalizada.
+            </p>
+        </div>
+        <div class="pill-note">
+            Rúbricas en línea • Analítica educativa • Feedback inmediato
+        </div>
+    </div>
+
+    <div class="eval-grid">
+        <div class="eval-card reveal">
+            <strong>Instrumentos digitales</strong>
+            <span>Cuestionarios, rúbricas y portafolios electrónicos alineados a competencias.</span>
+        </div>
+        <div class="eval-card reveal">
+            <strong>Seguimiento continuo</strong>
+            <span>Reportes visuales sobre desempeño y participación del grupo.</span>
+        </div>
+        <div class="eval-card reveal">
+            <strong>Decisiones con datos</strong>
+            <span>La información guía ajustes en estrategias, no solo calificaciones finales.</span>
+        </div>
+        <div class="eval-card reveal">
+            <strong>Retroalimentación humana</strong>
+            <span>Mensajes claros, empáticos y formativos a través de medios digitales.</span>
+        </div>
+
+        <div class="eval-img reveal">
+            <!-- tec6 -->
+            <img src="tec6.jpg" alt="Pantalla con gráficos de evaluación">
+        </div>
+        <div class="eval-img reveal">
+            <!-- tec7 o tec8 -->
+            <img src="tec7.jpg" alt="Dashboard con indicadores de desempeño">
+        </div>
+    </div>
+</section>
+
+<!-- PEDAGOGÍAS EMERGENTES -->
+<section class="emergent-section" id="pedagogias">
+    <div class="emergent-wrap reveal">
+        <div>
+            <div class="section-kicker" style="color:#22c55e;">Pedagogías emergentes</div>
+            <h2>Aprendizajes inmersivos, colaborativos y apoyados en IA.</h2>
+            <p>
+                La mediación tecnológica abre espacios para realidad aumentada, gamificación,
+                aprendizaje basado en proyectos globales y uso ético de la inteligencia artificial.
+                El pedagogo es clave para darle sentido crítico y humano a estas tendencias.
+            </p>
+            <div class="emergent-tags">
+                <div class="emergent-tag">Gamificación</div>
+                <div class="emergent-tag">Aprendizaje híbrido</div>
+                <div class="emergent-tag">Realidad virtual</div>
+                <div class="emergent-tag">IA y personalización</div>
+            </div>
+        </div>
+        <div class="emergent-gallery">
+            <!-- tec10-13 -->
+            <div class="emergent-img">
+                <img src="tec10.jpg" alt="Ilustración de innovación educativa">
+                <div class="emergent-label">Experiencias activas</div>
+            </div>
+            <div class="emergent-img">
+                <img src="tec11.jpg" alt="Uso de realidad virtual en educación">
+                <div class="emergent-label">Entornos inmersivos</div>
+            </div>
+            <div class="emergent-img">
+                <img src="tec12.jpg" alt="IA apoyando procesos educativos">
+                <div class="emergent-label">IA como aliada</div>
+            </div>
+            <div class="emergent-img">
+                <img src="tec13.jpg" alt="Pensamiento creativo">
+                <div class="emergent-label">Creatividad y crítica</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- DESARROLLO PROFESIONAL Y COMUNIDADES DIGITALES -->
+<section class="dev-section" id="desarrollo">
+    <div class="section-header" style="padding:0;">
+        <div>
+            <div class="section-kicker">Desarrollo profesional y comunidades digitales</div>
+            <h2 class="section-title">Docentes y pedagogos conectados, actualizados y colaborando.</h2>
+            <p class="section-subtitle">
+                Las redes profesionales permiten compartir recursos, experiencias y proyectos
+                con impacto local e internacional.
+            </p>
+        </div>
+    </div>
+
+    <div class="dev-grid">
+        <div class="dev-text reveal">
+            <h3>Un pedagogo que aprende siempre</h3>
+            <p>
+                La tecnología facilita espacios de formación continua, diplomados en línea,
+                webinars, comunidades de práctica y proyectos colaborativos entre instituciones.
+            </p>
+            <div class="dev-list">
+                <span>Participación en comunidades y redes académicas virtuales.</span>
+                <span>Intercambio de buenas prácticas y recursos abiertos.</span>
+                <span>Actualización constante en tendencias digitales y pedagógicas.</span>
+                <span>Construcción de identidad profesional sólida y conectada.</span>
+            </div>
+        </div>
+
+        <div class="dev-gallery reveal">
+            <!-- tec14-17 -->
+            <div class="dev-img">
+                <img src="tec14.jpg" alt="Conexiones globales en línea">
+                <div class="dev-label">Redes globales</div>
+            </div>
+            <div class="dev-img">
+                <img src="tec15.jpg" alt="Comunicación digital colaborativa">
+                <div class="dev-label">Comunidades docentes</div>
+            </div>
+            <div class="dev-img">
+                <img src="tec16.jpg" alt="Reunión en línea de equipo educativo">
+                <div class="dev-label">Trabajo remoto</div>
+            </div>
+            <div class="dev-img large">
+                <img src="tec17.jpg" alt="Persona gestionando información en múltiples pantallas">
+                <div class="dev-label">Gestión del conocimiento</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="gt-cta-bottom" id="contacto">
+    <p>
+        <strong>¿Te imaginas diseñando experiencias educativas apoyadas en tecnología, datos y creatividad?</strong><br>
+        El área de Gestión y Tecnología en Pedagogía te prepara para liderar proyectos digitales,
+        acompañar a docentes y estudiantes, y construir ecosistemas de aprendizaje innovadores.
+    </p>
+    <a href="index.html">Volver al inicio</a>
+</section>
+
+<footer class="footer">
+    © 2025 Carrera de Pedagogía · Gestión y Tecnología · Proyecto Integrador 26-1
+</footer>
+
+<script>
+    // Scroll suave para anclas internas
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', e => {
+            const target = document.querySelector(link.getAttribute('href'));
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+
+    // Animación reveal al hacer scroll
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.18 });
+
+    revealEls.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área Educacional | Pedagogía</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #020817;
+            color: #264eab;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; }
+
+        /* Header (igual estilo que index) */
+        .header {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 18px rgba(0,0,0,0.25);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 14px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+        }
+
+        .logo-img {
+            width: 62px;
+            height: auto;
+            border-radius: 10px;
+            object-fit: contain;
+            background-color: white;
+            padding: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+        }
+
+        .logo-text h1 {
+            font-size: 1.02em;
+            font-weight: 600;
+        }
+
+        .logo-text p {
+            font-size: 0.72em;
+            opacity: 0.9;
+        }
+
+        .menu {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .menu-item {
+            position: relative;
+        }
+
+        .menu-link {
+            color: #fff;
+            font-weight: 500;
+            font-size: 0.92em;
+            padding: 6px 0;
+            display: inline-block;
+            transition: all 0.25s ease;
+        }
+
+        .menu-link:hover {
+            opacity: 0.85;
+            transform: translateY(-1px);
+        }
+
+        /* Marca la sección actual */
+        .menu-link.active {
+            border-bottom: 2px solid #fbbf24;
+        }
+
+        .submenu {
+            position: absolute;
+            top: 100%;
+            left: -20px;
+            background: #ffffff;
+            min-width: 260px;
+            box-shadow: 0 12px 40px rgba(38, 66, 130, 0.25);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.25s ease;
+            border-radius: 10px;
+            margin-top: 10px;
+            padding: 10px 0;
+            z-index: 1200;
+        }
+
+        .menu-item:hover .submenu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .submenu li { list-style: none; }
+
+        .submenu a {
+            display: block;
+            padding: 10px 22px;
+            font-size: 0.88em;
+            color: #111827;
+            transition: all 0.2s ease;
+        }
+
+        .submenu a:hover {
+            background: #f3f4ff;
+            color: #6366f1;
+            padding-left: 28px;
+        }
+
+        /* HERO */
+        .hero-edu {
+            position: relative;
+            background:
+                linear-gradient(135deg, rgba(6, 78, 59, 0.85), rgba(37, 99, 235, 0.92)),
+                url('imagen1.jpeg') center/cover no-repeat;
+            min-height: 420px;
+            display: flex;
+            align-items: flex-end;
+            overflow: hidden;
+            color: #fff;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 10% 0, rgba(248,250,252,0.14), transparent 55%),
+                radial-gradient(circle at 90% 0, rgba(248,250,252,0.10), transparent 55%);
+            mix-blend-mode: screen;
+            pointer-events: none;
+        }
+
+        .hero-edu-inner {
+            position: relative;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 80px 40px 40px;
+            display: grid;
+            grid-template-columns: 1.6fr 1.2fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .hero-kicker {
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: #bbf7d0;
+            margin-bottom: 6px;
+        }
+
+        .hero-edu h1 {
+            font-size: 2.7em;
+            line-height: 1.18;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .hero-edu p {
+            font-size: 1em;
+            max-width: 580px;
+            opacity: 0.96;
+            line-height: 1.7;
+        }
+
+        .hero-tags {
+            margin-top: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .hero-tag {
+            font-size: 0.78em;
+            padding: 6px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(226,232,240,0.6);
+            backdrop-filter: blur(6px);
+        }
+
+        .hero-card {
+            align-self: stretch;
+            background: rgba(15,23,42,0.92);
+            border-radius: 18px;
+            padding: 18px 18px 16px;
+            box-shadow: 0 14px 40px rgba(15,23,42,0.7);
+            display: grid;
+            gap: 10px;
+            animation: riseIn 0.8s ease-out 0.15s both;
+        }
+
+        .hero-card-title {
+            font-size: 0.86em;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+        }
+
+        .hero-card h2 {
+            font-size: 1.25em;
+            color: #e5e7eb;
+        }
+
+        .hero-card p {
+            font-size: 0.9em;
+            color: #9ca3af;
+            line-height: 1.7;
+        }
+
+        .hero-stat-row {
+            display: flex;
+            gap: 18px;
+            margin-top: 4px;
+        }
+
+        .hero-stat {
+            flex: 1;
+        }
+
+        .hero-stat span {
+            display: block;
+        }
+
+        .hero-stat .num {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #22c55e;
+        }
+
+        .hero-stat .label {
+            font-size: 0.72em;
+            color: #9ca3af;
+        }
+
+        .hero-cta {
+            margin-top: 6px;
+        }
+
+        .hero-cta a {
+            display: inline-block;
+            padding: 8px 18px;
+            border-radius: 999px;
+            font-size: 0.8em;
+            color: #020817;
+            font-weight: 600;
+            background: linear-gradient(135deg,#22c55e,#a7f3d0);
+            box-shadow: 0 10px 26px rgba(15,23,42,0.9);
+            transition: all 0.25s ease;
+        }
+
+        .hero-cta a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 34px rgba(15,23,42,1);
+        }
+
+        @keyframes riseIn {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Layout general secciones */
+        .section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 40px 40px;
+            position: relative;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 24px;
+            margin-bottom: 26px;
+        }
+
+        .section-kicker {
+            font-size: 0.78em;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #6366f1;
+            margin-bottom: 4px;
+        }
+
+        .section-title {
+            font-size: 1.9em;
+            color: #1e4296;
+        }
+
+        .section-subtitle {
+            font-size: 0.92em;
+            color: #6b7280;
+            max-width: 520px;
+            line-height: 1.7;
+        }
+
+        .pill-note {
+            font-size: 0.78em;
+            padding: 5px 12px;
+            border-radius: 999px;
+            background: #eef2ff;
+            color: #4f46e5;
+        }
+
+        /* GRID ESCUELA FORMAL */
+        .edu-grid {
+            display: grid;
+            grid-template-columns: minmax(0,1.5fr) minmax(0,1.3fr);
+            gap: 26px;
+            align-items: stretch;
+        }
+
+        .edu-text-card {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 22px 22px 20px;
+            box-shadow: 0 16px 40px rgba(15,23,42,0.10);
+            border: 1px solid #e5e7eb;
+            display: grid;
+            gap: 10px;
+            animation: fadeUp 0.6s ease-out both;
+        }
+
+        .edu-text-card h3 {
+            font-size: 1.15em;
+            color: #111827;
+        }
+
+        .edu-text-card p {
+            font-size: 0.9em;
+            color: #4b5563;
+            line-height: 1.7;
+        }
+
+        .chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+    align-items: center;
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: rgba(239, 246, 255, 0.92);
+    color: #2563eb;
+    font-size: 0.78em;
+    line-height: 1;
+    white-space: nowrap;
+    box-shadow: 0 4px 10px rgba(148, 163, 253, 0.25);
+}
+
+
+        /* Galería imágenes */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3,minmax(0,1fr));
+            gap: 10px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 14px;
+            overflow: hidden;
+            height: 120px;
+            background: #111827;
+            cursor: pointer;
+            transform-origin: center;
+            transition: all 0.28s ease;
+        }
+
+        .gallery-item.large {
+            grid-column: span 2;
+            height: 150px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: saturate(1.05);
+            transition: all 0.28s ease;
+        }
+
+        .gallery-item::after {
+            content: "Ver más";
+            position: absolute;
+            right: 10px;
+            bottom: 8px;
+            font-size: 0.7em;
+            padding: 4px 9px;
+            border-radius: 999px;
+            background: rgba(15,23,42,0.85);
+            color: #e5e7eb;
+            opacity: 0;
+            transform: translateY(6px);
+            transition: all 0.25s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 14px 30px rgba(15,23,42,0.45);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.06);
+            filter: saturate(1.15) brightness(1.02);
+        }
+
+        .gallery-item:hover::after {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* EDUCACIÓN ESPECIAL - tarjetas */
+        .especial-grid {
+            display: grid;
+            grid-template-columns: minmax(0,1.6fr) minmax(0,1.4fr);
+            gap: 26px;
+            align-items: stretch;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.72em;
+            padding: 4px 9px;
+            border-radius: 999px;
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .especial-points {
+            display: grid;
+            gap: 6px;
+            margin-top: 6px;
+            font-size: 0.88em;
+            color: #4b5563;
+        }
+
+        .especial-points span::before {
+            content: "• ";
+            color: #22c55e;
+            font-weight: bold;
+        }
+
+        .especial-gallery {
+            background: linear-gradient(145deg,#eff6ff,#e0f2fe);
+            border-radius: 18px;
+            padding: 12px 12px 10px;
+            display: grid;
+            grid-template-columns: repeat(2,minmax(0,1fr));
+            gap: 8px;
+            align-items: stretch;
+            box-shadow: 0 14px 34px rgba(15,23,42,0.16);
+        }
+
+        .especial-gallery-item {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            height: 105px;
+        }
+
+        .especial-gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.25s ease;
+        }
+
+        .especial-gallery-item:hover img {
+            transform: scale(1.06);
+            filter: saturate(1.18);
+        }
+
+        .especial-label {
+            position: absolute;
+            left: 8px;
+            bottom: 6px;
+            font-size: 0.65em;
+            padding: 3px 8px;
+            border-radius: 999px;
+            background: rgba(15,23,42,0.9);
+            color: #e5e7eb;
+        }
+
+        /* INVESTIGACIÓN Y POLÍTICAS */
+        .invest-grid {
+            display: grid;
+            grid-template-columns: minmax(0,1.4fr) minmax(0,1.6fr);
+            gap: 26px;
+            align-items: stretch;
+        }
+
+        .invest-card {
+            background: #020817;
+            color: #e5e7eb;
+            border-radius: 18px;
+            padding: 20px 20px 18px;
+            box-shadow: 0 16px 40px rgba(15,23,42,0.85);
+            border: 1px solid rgba(148,163,253,0.24);
+            display: grid;
+            gap: 8px;
+        }
+
+        .invest-card h3 {
+            font-size: 1.12em;
+            color: #bfdbfe;
+        }
+
+        .invest-card p {
+            font-size: 0.86em;
+            color: #9ca3af;
+            line-height: 1.7;
+        }
+
+        .invest-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 2px;
+        }
+
+        .invest-tag {
+            font-size: 0.68em;
+            padding: 4px 8px;
+            border-radius: 6px;
+            background: rgba(30,64,175,0.9);
+            color: #e5e7eb;
+        }
+
+        .invest-steps {
+            display: grid;
+            gap: 6px;
+            margin-top: 4px;
+            font-size: 0.8em;
+            color: #d1d5db;
+        }
+
+        .invest-steps span::before {
+            content: "▹ ";
+            color: #38bdf8;
+        }
+
+        .invest-gallery {
+            display: grid;
+            grid-template-columns: repeat(2,minmax(0,1fr));
+            gap: 10px;
+        }
+
+        .invest-img {
+            position: relative;
+            border-radius: 14px;
+            overflow: hidden;
+            height: 120px;
+            background: #111827;
+        }
+
+        .invest-img.large {
+            grid-column: span 2;
+            height: 130px;
+        }
+
+        .invest-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: saturate(1.05);
+            transition: all 0.25s ease;
+        }
+
+        .invest-img:hover img {
+            transform: scale(1.05);
+            filter: saturate(1.18);
+        }
+
+        .invest-caption {
+            position: absolute;
+            left: 8px;
+            bottom: 6px;
+            padding: 3px 8px;
+            font-size: 0.64em;
+            border-radius: 999px;
+            background: rgba(15,23,42,0.9);
+            color: #e5e7eb;
+        }
+
+        /* CTA inferior */
+        .edu-cta-bottom {
+            max-width: 1400px;
+            margin: 10px auto 50px;
+            padding: 20px 40px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            background: radial-gradient(circle at 0 0,rgba(129,140,248,0.16),transparent),
+                        radial-gradient(circle at 100% 0,rgba(16,185,129,0.16),transparent),
+                        #020817;
+            color: #e5e7eb;
+            border-radius: 24px;
+            box-shadow: 0 18px 48px rgba(15,23,42,0.9);
+        }
+
+        .edu-cta-bottom p {
+            font-size: 0.9em;
+            max-width: 640px;
+            color: #9ca3af;
+        }
+
+        .edu-cta-bottom strong {
+            color: #e5e7eb;
+        }
+
+        .edu-cta-bottom a {
+            padding: 10px 22px;
+            border-radius: 999px;
+            background: #22c55e;
+            color: #020817;
+            font-weight: 600;
+            font-size: 0.86em;
+            box-shadow: 0 14px 40px rgba(15,23,42,1);
+            transition: all 0.25s ease;
+        }
+
+        .edu-cta-bottom a:hover {
+            transform: translateY(-2px);
+            background: #16a34a;
+            color: #f9fafb;
+        }
+
+        /* Animación de aparición general */
+        @keyframes fadeUp {
+            from { opacity:0; transform: translateY(18px); }
+            to { opacity:1; transform: translateY(0); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(18px);
+            transition: all 0.6s ease-out;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Footer simple coherente */
+        .footer {
+            background: #020817;
+            color: #6b7280;
+            padding: 24px 40px 26px;
+            text-align: center;
+            font-size: 0.78em;
+        }
+
+        @media (max-width: 980px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .hero-edu-inner {
+                grid-template-columns: 1fr;
+                padding-top: 70px;
+            }
+            .hero-card {
+                order: -1;
+            }
+            .section {
+                padding: 40px 20px 24px;
+            }
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .edu-grid,
+            .especial-grid,
+            .invest-grid {
+                grid-template-columns: 1fr;
+            }
+            .edu-cta-bottom {
+                flex-direction: column;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="nav-container">
+        <div class="logo">
+            <img src="LOGO.JPG" alt="Logo Carrera de Pedagogía" class="logo-img">
+            <div class="logo-text">
+                <h1>PEDAGOGÍA 4to CUATRIMESTRE</h1>
+                <p>Proyecto Integrador 26-1</p>
+            </div>
+        </div>
+        <nav>
+            <ul class="menu">
+                <li class="menu-item"><a href="index.html" class="menu-link">Inicio</a></li>
+
+                <li class="menu-item">
+                    <a href="educacional.html" class="menu-link active">Educación Formal</a>
+                    <ul class="submenu">
+                        <li><a href="#escuela-formal">Escuela formal</a></li>
+                        <li><a href="#educacion-especial">Educación especial</a></li>
+                        <li><a href="#investigacion-politicas">Investigación y políticas</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item">
+                    <a href="gestion-tecnologia.html" class="menu-link">Tecnología en la Gestión Educativa</a>
+                    <ul class="submenu">
+                        <li><a href="gestion-tecnologia.html#herramientas">Herramientas digitales</a></li>
+                        <li><a href="gestion-tecnologia.html#contenidos">Contenidos digitales</a></li>
+                        <li><a href="gestion-tecnologia.html#pedagogias">Pedagogías emergentes</a></li>
+                        <li><a href="gestion-tecnologia.html#evaluacion">Evaluación digital</a></li>
+                        <li><a href="gestion-tecnologia.html#desarrollo">Desarrollo profesional</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item">
+                    <a href="organizacional.html" class="menu-link">Organizacional</a>
+                    <ul class="submenu">
+                        <li><a href="organizacional.html#rrhh">Recursos humanos</a></li>
+                        <li><a href="organizacional.html#capacitacion">Capacitación</a></li>
+                        <li><a href="organizacional.html#cambio">Gestión del cambio</a></li>
+                        <li><a href="organizacional.html#cultura">Cultura institucional</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item">
+                    <a href="socio-comunitario.html" class="menu-link">Socio-Comunitario</a>
+                    <ul class="submenu">
+                        <li><a href="socio-comunitario.html#salud">Sector salud</a></li>
+                        <li><a href="socio-comunitario.html#servicio">Servicio comunitario</a></li>
+                        <li><a href="socio-comunitario.html#reinsercion">Reinserción social</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item">
+                    <a href="encuesta.html" class="menu-link">Encuesta</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- HERO -->
+<section class="hero-edu">
+    <div class="hero-overlay"></div>
+    <div class="hero-edu-inner">
+        <div>
+            <div class="hero-kicker">Área Educacional</div>
+            <h1>Formación integral en contextos escolares reales.</h1>
+            <p>
+                El área educacional de Pedagogía prepara profesionales capaces de diseñar experiencias
+                de aprendizaje significativas en escuelas formales, contextos de educación especial
+                e instituciones donde la investigación y las políticas educativas transforman la realidad.
+            </p>
+            <div class="hero-tags">
+                <div class="hero-tag">Escuela formal</div>
+                <div class="hero-tag">Educación especial</div>
+                <div class="hero-tag">Investigación educativa</div>
+                <div class="hero-tag">Políticas públicas</div>
+            </div>
+        </div>
+        <div class="hero-card">
+            <div class="hero-card-title">Experiencia en campo</div>
+            <h2>Pedagogía conectada con las aulas, las comunidades y la evidencia.</h2>
+            <p>
+                Nuestras prácticas, proyectos y diagnósticos se desarrollan con niñas, niños, adolescentes
+                y docentes en contextos reales, impulsando una mirada crítica, inclusiva y humana.
+            </p>
+            <div class="hero-stat-row">
+                <div class="hero-stat">
+                    <span class="num">+40</span>
+                    <span class="label">Escuelas vinculadas</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="num">+60%</span>
+                    <span class="label">Proyectos con impacto directo</span>
+                </div>
+            </div>
+            <div class="hero-cta">
+                <a href="#escuela-formal">Explorar experiencias</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ESCUELA FORMAL -->
+<section class="section" id="escuela-formal">
+    <div class="section-header">
+        <div>
+            <div class="section-kicker">Escuela formal</div>
+            <h2 class="section-title">Acompañar, diseñar y transformar el aula.</h2>
+            <p class="section-subtitle">
+                La educación formal se rige por planes y programas oficiales.
+                Aquí el pedagogo analiza, adapta y crea estrategias para asegurar el aprendizaje,
+                la participación y el bienestar de cada estudiante.
+            </p>
+        </div>
+        <div class="pill-note">
+            Diseño curricular • Ambientes significativos • Evaluación formativa
+        </div>
+    </div>
+
+    <div class="edu-grid">
+        <div class="edu-text-card reveal">
+            <h3>¿Qué hace el pedagogo en la escuela formal?</h3>
+            <p>
+                Observa la realidad del aula, diagnostica necesidades, diseña secuencias didácticas,
+                acompaña a docentes, propone estrategias inclusivas y evalúa con enfoque humano.
+            </p>
+            <p>
+                Su papel es articular teoría y práctica, vinculando políticas educativas con las
+                experiencias cotidianas de estudiantes y comunidades escolares.
+            </p>
+            <div class="chip-row">
+                <div class="chip">Diseño de planes y proyectos</div>
+                <div class="chip">Atención a la diversidad</div>
+                <div class="chip">Orientación a docentes</div>
+                <div class="chip">Cultura escolar inclusiva</div>
+            </div>
+        </div>
+
+        <div class="gallery reveal">
+            <!-- Usa tus archivos reales: imagen1.jpeg ... imagen9.jpeg -->
+            <div class="gallery-item large">
+                <img src="imagen9.jpg" alt="Estudiantes en actividad al aire libre">
+            </div>
+            <div class="gallery-item">
+                <img src="imagen1.jpg" alt="Actividad pedagógica en el aula">
+            </div>
+            <div class="gallery-item">
+                <img src="imagen2.jpg" alt="Niñas y niños trabajando en equipo">
+            </div>
+            <div class="gallery-item">
+                <img src="imagen3.jpg" alt="Aprendizaje activo">
+            </div>
+            <div class="gallery-item">
+                <img src="imagen7.jpg" alt="Trabajo colaborativo con materiales">
+            </div>
+            <div class="gallery-item">
+                <img src="imagen8.jpg" alt="Juego, movimiento y convivencia">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- EDUCACIÓN ESPECIAL -->
+<section class="section" id="educacion-especial">
+    <div class="section-header">
+        <div>
+            <div class="section-kicker">Educación especial</div>
+            <h2 class="section-title">Educación que reconoce la singularidad de cada estudiante.</h2>
+            <p class="section-subtitle">
+                La educación especial garantiza apoyos, accesibilidad y estrategias personalizadas
+                para niñas, niños y jóvenes con discapacidad o necesidades específicas de aprendizaje.
+            </p>
+        </div>
+        <div class="pill-note">
+            Evaluación integral • Ajustes razonables • Trabajo interdisciplinario
+        </div>
+    </div>
+
+    <div class="especial-grid">
+        <div class="edu-text-card reveal">
+            <span class="badge">Rol del pedagogo en educación especial</span>
+            <p>
+                Diseña planes individualizados, adapta materiales, colabora con familias,
+                terapeutas y docentes, y promueve entornos donde cada estudiante pueda aprender
+                a su ritmo, con dignidad y autonomía.
+            </p>
+            <div class="especial-points">
+                <span>Detección y evaluación de necesidades educativas especiales.</span>
+                <span>Uso de metodologías activas, sensoriales y lúdicas.</span>
+                <span>Integración de tecnologías de apoyo y comunicación alternativa.</span>
+                <span>Fomento de la participación social y emocional.</span>
+            </div>
+        </div>
+
+        <div class="especial-gallery reveal">
+            <!-- Usa tus imágenes 14-17, ajusta nombres si cambian -->
+            <div class="especial-gallery-item">
+                <img src="imagen14.jpg" alt="Niña en actividad de educación especial">
+                <div class="especial-label">Aulas inclusivas</div>
+            </div>
+            <div class="especial-gallery-item">
+                <img src="imagen15.jpg" alt="Docente acompañando a estudiante">
+                <div class="especial-label">Acompañamiento cercano</div>
+            </div>
+            <div class="especial-gallery-item">
+                <img src="imagen16.jpg" alt="Juego estructurado para desarrollo integral">
+                <div class="especial-label">Material adaptado</div>
+            </div>
+            <div class="especial-gallery-item">
+                <img src="imagen17.jpg" alt="Grupo diverso aprendiendo junto">
+                <div class="especial-label">Comunidades diversas</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- INVESTIGACIÓN Y POLÍTICAS EDUCATIVAS -->
+<section class="section" id="investigacion-politicas">
+    <div class="section-header">
+        <div>
+            <div class="section-kicker">Investigación y políticas educativas</div>
+            <h2 class="section-title">Decisiones basadas en evidencia, con rostro humano.</h2>
+            <p class="section-subtitle">
+                Sin datos confiables y análisis crítico no hay transformación real.
+                Desde esta línea, el pedagogo investiga, evalúa programas y aporta a políticas
+                que garantizan el derecho a la educación con equidad y calidad.
+            </p>
+        </div>
+        <div class="pill-note">
+            Diagnóstico • Evaluación • Innovación • Incidencia pública
+        </div>
+    </div>
+
+    <div class="invest-grid">
+        <div class="invest-card reveal">
+            <h3>Campo de acción</h3>
+            <p>
+                El pedagogo analiza información, escucha a las comunidades y traduce los hallazgos
+                en propuestas concretas: ajustes curriculares, proyectos institucionales
+                y políticas educativas más justas.
+            </p>
+            <div class="invest-tags">
+                <div class="invest-tag">Investigación educativa</div>
+                <div class="invest-tag">Indicadores de calidad</div>
+                <div class="invest-tag">Equidad e inclusión</div>
+                <div class="invest-tag">Tecnología y datos</div>
+            </div>
+            <div class="invest-steps">
+                <span>Diagnosticar: comprender contextos y brechas.</span>
+                <span>Diseñar: estrategias y programas pertinentes.</span>
+                <span>Implementar: acciones en escuelas y comunidades.</span>
+                <span>Evaluar: impacto y mejora continua.</span>
+            </div>
+        </div>
+
+        <div class="invest-gallery reveal">
+            <!-- Usa tus imágenes 10,11,12,13 -->
+            <div class="invest-img large">
+                <img src="imagen10.jpg" alt="Equipo analizando información educativa">
+                <div class="invest-caption">Análisis colaborativo</div>
+            </div>
+            <div class="invest-img">
+                <img src="imagen11.jpg" alt="Planeación estratégica">
+                <div class="invest-caption">Diseño de propuestas</div>
+            </div>
+            <div class="invest-img">
+                <img src="imagen12.jpg" alt="Uso de tecnología en el aula">
+                <div class="invest-caption">Innovación con tecnología</div>
+            </div>
+            <div class="invest-img">
+                <img src="imagen13.jpg" alt="Presentación de resultados a la comunidad">
+                <div class="invest-caption">Incidencia en políticas</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA INFERIOR -->
+<section class="edu-cta-bottom" id="contacto">
+    <p>
+        <strong>¿Te ves interviniendo en aulas, proyectos de inclusión o políticas educativas?</strong><br>
+        El área educacional de Pedagogía te forma como profesional crítico, sensible y preparado
+        para transformar realidades desde la escuela, con evidencia y compromiso social.
+    </p>
+    <a href="index.html#areas">Volver a las áreas</a>
+</section>
+
+<footer class="footer">
+    © 2025 Carrera de Pedagogía · Área Educacional · Proyecto Integrador 26-1
+</footer>
+
+<script>
+    // Scroll suave dentro de la página
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', e => {
+            const target = document.querySelector(link.getAttribute('href'));
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+
+    // Animación "reveal" al hacer scroll
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.18 });
+
+    revealEls.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

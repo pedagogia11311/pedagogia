@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedagogía</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+        }
+
+        .logo-img {
+            width: 70px;
+            height: auto;
+            border-radius: 10px;
+            object-fit: contain;
+            background-color: white;
+            padding: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+        }
+
+        .logo-text h1 {
+            font-size: 1.05em;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .logo-text p {
+            font-size: 0.75em;
+            opacity: 0.9;
+        }
+
+        .menu {
+            list-style: none;
+            display: flex;
+            gap: 35px;
+            align-items: center;
+        }
+
+        .menu-item {
+            position: relative;
+        }
+
+        .menu-link {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            font-size: 0.95em;
+            padding: 8px 0;
+            transition: opacity 0.3s ease;
+            display: block;
+        }
+
+        .menu-link:hover {
+            opacity: 0.8;
+        }
+
+        .submenu {
+            position: absolute;
+            top: 100%;
+            left: -20px;
+            background: white;
+            min-width: 280px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            margin-top: 15px;
+            padding: 10px 0;
+            z-index: 2000;
+        }
+
+        .menu-item:hover .submenu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .submenu li { list-style: none; }
+
+        .submenu a {
+            display: block;
+            padding: 12px 25px;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.2s ease;
+            font-size: 0.9em;
+        }
+
+        .submenu a:hover {
+            background: #f0f0f0;
+            color: #6366f1;
+            padding-left: 30px;
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            height: 600px;
+            background:
+            linear-gradient(135deg, rgba(99, 102, 241, 0.9), rgba(139, 92, 246, 0.85), rgba(217, 70, 239, 0.9)),
+            url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%236366f1" width="1200" height="600"/><path fill="%23ffffff" opacity="0.05" d="M0 400 Q300 350 600 400 T1200 400 V600 H0 Z"/></svg>');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><circle cx="100" cy="100" r="2" fill="white" opacity="0.3"/><circle cx="300" cy="200" r="2" fill="white" opacity="0.3"/><circle cx="500" cy="150" r="2" fill="white" opacity="0.3"/><circle cx="700" cy="250" r="2" fill="white" opacity="0.3"/><circle cx="900" cy="180" r="2" fill="white" opacity="0.3"/><circle cx="1100" cy="220" r="2" fill="white" opacity="0.3"/></svg>');
+            animation: floatPattern 30s linear infinite;
+        }
+
+        @keyframes floatPattern {
+            from { transform: translateY(0); }
+            to { transform: translateY(-50px); }
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-text {
+            color: white;
+        }
+
+        .hero-text h2 {
+            font-size: 3em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-text h3 {
+            font-size: 2.2em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            opacity: 0.95;
+        }
+
+        .hero-text p {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 35px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(251, 191, 36, 0.6);
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-person {
+            width: 400px;
+            height: 500px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .person-placeholder {
+            font-size: 200px;
+            opacity: 0.3;
+            margin-bottom: -50px;
+        }
+
+        /* Cards: resumen de áreas */
+        .cards-section {
+            max-width: 1400px;
+            margin: -80px auto 60px;
+            padding: 0 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 22px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 16px;
+            padding: 26px 22px 22px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.25s ease;
+            border-top: 4px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:nth-child(1){ border-top-color:#6366f1; }
+        .service-card:nth-child(2){ border-top-color:#22c55e; }
+        .service-card:nth-child(3){ border-top-color:#f97316; }
+        .service-card:nth-child(4){ border-top-color:#ec4899; }
+
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 55px rgba(15,23,42,0.16);
+        }
+
+        .service-card h3 {
+            font-size: 1.35em;
+            margin-bottom: 10px;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 16px;
+            font-size: 0.95em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-button {
+            display: inline-block;
+            padding: 9px 22px;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9em;
+            font-weight: 500;
+            transition: all 0.25s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-card:nth-child(1) .card-button{ background:#6366f1; }
+        .service-card:nth-child(2) .card-button{ background:#22c55e; }
+        .service-card:nth-child(3) .card-button{ background:#f97316; }
+        .service-card:nth-child(4) .card-button{ background:#ec4899; }
+
+        .card-button:hover {
+            transform: translateY(-2px);
+            filter: brightness(0.95);
+        }
+
+        /* STATS: tarjetas + cuadro desplegable con gráfica */
+        .stats-section {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6, #d946ef);
+            padding: 80px 40px 40px;
+            margin: 40px 0 0;
+            position: relative;
+            overflow: hidden;
+            color: #fff;
+        }
+
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0.12;
+            background: radial-gradient(circle at 0 0, #ffffff, transparent 55%),
+                        radial-gradient(circle at 100% 0, #ffffff, transparent 55%);
+            pointer-events: none;
+        }
+
+        .stats-title {
+            max-width: 1400px;
+            margin: 0 auto 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stats-title h2 {
+            font-size: 2.4em;
+            font-weight: 700;
+        }
+
+        .stats-title p {
+            margin-top: 8px;
+            font-size: 1em;
+            opacity: 0.9;
+        }
+
+        .stats-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 18px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-card {
+            position: relative;
+            background: rgba(15,23,42,0.18);
+            border-radius: 18px;
+            padding: 22px 18px 16px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 12px 30px rgba(15,23,42,0.4);
+            transition: all 0.25s ease;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 50px rgba(15,23,42,0.85);
+            background: rgba(15,23,42,0.32);
+        }
+
+        .stat-question {
+            font-size: 0.78em;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+
+        .stat-number {
+            font-size: 2.2em;
+            font-weight: 700;
+            margin-top: 2px;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.88em;
+            opacity: 0.95;
+            margin-top: 3px;
+        }
+
+        /* Cuadro desplegable con gráfica */
+        .stat-details {
+            margin-top: 12px;
+            padding: 14px 8px 12px;
+            border-top: 1px solid rgba(148,163,253,0.12);
+            display: grid;
+            grid-template-columns: 110px 1fr;
+            gap: 18px;
+            align-items: center;
+
+            max-height: 0;
+            opacity: 0;
+            transform: translateY(-8px);
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .stat-card:hover .stat-details {
+            max-height: 260px;
+            opacity: 1;
+            transform: translateY(4px);
+        }
+
+        .chart-mini-donut {
+            width: 95px;
+            height: 95px;
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(15,23,42,0.85);
+            margin-left: 6px;
+        }
+
+        .chart-mini-donut::after {
+            content: "";
+            position: absolute;
+            inset: 22px;
+            background: #020817;
+            border-radius: 50%;
+        }
+
+        .chart-mini-label {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75em;
+            color: #fff;
+            z-index: 2;
+            font-weight: 700;
+        }
+
+        .detail-legend {
+            font-size: 0.78em;
+            display: grid;
+            gap: 3px;
+            color: #e5e7eb;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .detail-color {
+            width: 10px;
+            height: 10px;
+            border-radius: 3px;
+        }
+
+        .survey-cta {
+            max-width: 1400px;
+            margin: 24px auto 0;
+            text-align: right;
+            position: relative;
+            z-index: 1;
+        }
+
+        .survey-button {
+            display: inline-block;
+            padding: 9px 22px;
+            border-radius: 999px;
+            background: #fbbf24;
+            color: #111827;
+            font-weight: 600;
+            font-size: 0.9em;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(15,23,42,0.7);
+            transition: all 0.25s ease;
+        }
+
+        .survey-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 40px rgba(15,23,42,0.9);
+            background: #f59e0b;
+            color: #fff;
+        }
+
+        /* Footer */
+        .footer {
+            background: #0f1419;
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .footer p { opacity: 0.8; }
+
+        @media (max-width: 968px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h2 { font-size: 2.2em; }
+            .hero-image { display: none; }
+
+            .menu {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .nav-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .cards-section {
+                margin-top: 40px;
+            }
+            .stats-title h2 {
+                font-size: 2em;
+            }
+            .stat-details {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            .survey-cta {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+    <div class="nav-container">
+        <div class="logo">
+            <img src="logoUci.JPG" alt="Logo Carrera de Pedagogía" class="logo-img">
+            <div class="logo-text">
+                <h1>PEDAGOGÍA 4to CUATRIMESTRE</h1>
+                <p>Proyecto Integrador 26-1</p>
+            </div>
+        </div>
+        <nav>
+            <ul class="menu">
+                <li class="menu-item"><a href="index.html" class="menu-link active">Inicio</a></li>
+
+                <li class="menu-item">
+                    <a href="#" class="menu-link">Educación Formal</a>
+                    <ul class="submenu">
+                        <li><a href="educacional.html#escuela-formal">Escuela formal</a></li>
+                        <li><a href="educacional.html#educacion-especial">Educación especial</a></li>
+                        <li><a href="educacional.html#investigacion-politicas">Investigación y políticas</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item">
+                    <a href="#" class="menu-link">Tecnología en la Gestión Educativa</a>
+                    <ul class="submenu">
+                        <li><a href="gestion-tecnologia.html#herramientas">Herramientas digitales</a></li>
+                        <li><a href="gestion-tecnologia.html#contenidos">Contenidos educativos digitales</a></li>
+                        <li><a href="gestion-tecnologia.html#pedagogias">Pedagogías emergentes</a></li>
+                        <li><a href="gestion-tecnologia.html#evaluacion">Evaluación digital</a></li>
+                        <li><a href="gestion-tecnologia.html#desarrollo">Desarrollo profesional</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item">
+                    <a href="#" class="menu-link">Organizacional</a>
+                    <ul class="submenu">
+                        <li><a href="organizacional.html#rrhh">Recursos humanos</a></li>
+                        <li><a href="organizacional.html#capacitacion">Capacitación</a></li>
+                        <li><a href="organizacional.html#cambio">Gestión del cambio</a></li>
+                        <li><a href="organizacional.html#cultura">Cultura institucional</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item">
+                    <a href="#" class="menu-link">Socio-Comunitario</a>
+                    <ul class="submenu">
+                        <li><a href="socio-comunitario.html#salud">Sector salud</a></li>
+                        <li><a href="socio-comunitario.html#servicio">Servicio comunitario</a></li>
+                        <li><a href="socio-comunitario.html#reinsercion">Reinserción social</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item">
+                    <a href="encuesta.html" class="menu-link active">Encuesta</a>
+                </li>
+
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-text">
+            <h2>Bienvenido a Nuestro Mundo Educativo</h2>
+            <h3>Carrera de Pedagogía</h3>
+            <p>Explora cómo el pedagogo interviene en escuelas, organizaciones, comunidades y contextos de salud para transformar realidades mediante la educación.</p>
+            <a href="#areas" class="cta-button">Explorar áreas</a>
+        </div>
+        <div class="hero-image">
+            <div class="hero-person">
+                <div class="person-placeholder">👨‍🏫</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cards-section" id="areas">
+    <div class="cards-grid">
+        <div class="service-card">
+            <h3>Educacional</h3>
+            <p>Intervención en escuelas, educación especial e investigación educativa para diseñar, adaptar y evaluar procesos que garanticen una educación inclusiva y de calidad.</p>
+            <a href="educacional.html" class="card-button">Ver área Educacional</a>
+        </div>
+
+        <div class="service-card">
+            <h3>Gestión y Tecnología</h3>
+            <p>Uso estratégico de herramientas digitales, contenidos multimedia y pedagogías emergentes para innovar la enseñanza, la evaluación y la formación docente.</p>
+            <a href="gestion-tecnologia.html" class="card-button">Ver Gestión y Tecnología</a>
+        </div>
+
+        <div class="service-card">
+            <h3>Organizacional</h3>
+            <p>Aplicación de la pedagogía en empresas e instituciones: capacitación, desarrollo del talento humano, gestión del cambio y construcción de culturas de aprendizaje.</p>
+            <a href="organizacional.html" class="card-button">Ver área Organizacional</a>
+        </div>
+
+        <div class="service-card">
+            <h3>Socio-Comunitario</h3>
+            <p>Acciones pedagógicas en hospitales, comunidades y programas de reinserción para asegurar el derecho a la educación en contextos de vulnerabilidad.</p>
+            <a href="socio-comunitario.html" class="card-button">Ver Socio-Comunitario</a>
+        </div>
+    </div>
+</section>
+
+<section class="stats-section">
+    <div class="stats-title">
+        <h2>Resultados de la encuesta a estudiantes de Pedagogía</h2>
+        <p>Pasa el cursor sobre cada tarjeta para ver la gráfica desplegable con el desglose.</p>
+    </div>
+
+    <div class="stats-container">
+        <!-- 1 -->
+        <div class="stat-card">
+            <div class="stat-question">¿Quién respondió más la encuesta?</div>
+            <div class="stat-number" data-target="58">0%</div>
+            <div class="stat-label">Mayor participación de mujeres.</div>
+            <div class="stat-details">
+                <div class="chart-mini-donut" style="background: conic-gradient(#ec4899 0 208.8deg,#3b82f6 208.8deg 360deg);">
+                    <div class="chart-mini-label">58%</div>
+                </div>
+                <div class="detail-legend">
+                    <div class="detail-item"><div class="detail-color" style="background:#ec4899;"></div>Mujeres: 58%</div>
+                    <div class="detail-item"><div class="detail-color" style="background:#3b82f6;"></div>Hombres: 42%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="stat-card">
+            <div class="stat-question">Estereotipos de género en Pedagogía</div>
+            <div class="stat-number" data-target="60">0%</div>
+            <div class="stat-label">Considera que sí existen estereotipos.</div>
+            <div class="stat-details">
+                <div class="chart-mini-donut" style="background: conic-gradient(#22c55e 0 216deg,#ef4444 216deg 360deg);">
+                    <div class="chart-mini-label">60%</div>
+                </div>
+                <div class="detail-legend">
+                    <div class="detail-item"><div class="detail-color" style="background:#22c55e;"></div>Sí: 60%</div>
+                    <div class="detail-item"><div class="detail-color" style="background:#ef4444;"></div>No: 40%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="stat-card">
+            <div class="stat-question">Importancia del pedagogo en contextos no escolares</div>
+            <div class="stat-number" data-target="52">0%</div>
+            <div class="stat-label">Lo perciben muy importante.</div>
+            <div class="stat-details">
+                <div class="chart-mini-donut" style="background: conic-gradient(#7c3aed 0 187.2deg,#3b82f6 187.2deg 342deg,#9ca3af 342deg 360deg);">
+                    <div class="chart-mini-label">52%</div>
+                </div>
+                <div class="detail-legend">
+                    <div class="detail-item"><div class="detail-color" style="background:#7c3aed;"></div>Muy importante: 52%</div>
+                    <div class="detail-item"><div class="detail-color" style="background:#3b82f6;"></div>Importante: 43%</div>
+                    <div class="detail-item"><div class="detail-color" style="background:#9ca3af;"></div>Poco importante: 5%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="stat-card">
+            <div class="stat-question">¿Dónde creen que trabaja un pedagogo?</div>
+            <div class="stat-number" data-target="49">0%</div>
+            <div class="stat-label">Lo ubican en múltiples contextos.</div>
+            <div class="stat-details">
+                <div class="chart-mini-donut" style="background: conic-gradient(#22c55e 0 176.4deg,#3b82f6 176.4deg 260deg,#0f172a 260deg 360deg);">
+                    <div class="chart-mini-label">49%</div>
+                </div>
+                <div class="detail-legend">
+                    <div class="detail-item"><div class="detail-color" style="background:#22c55e;"></div>Todas las anteriores: 49%</div>
+                    <div class="detail-item"><div class="detail-color" style="background:#3b82f6;"></div>Escuelas / empresas / comunidad</div>
+                    <div class="detail-item"><div class="detail-color" style="background:#0f172a;"></div>Otros espacios educativos</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="stat-card">
+            <div class="stat-question">Rol principal del pedagogo</div>
+            <div class="stat-number" data-target="22">0%</div>
+            <div class="stat-label">Destaca la capacitación y acompañamiento.</div>
+            <div class="stat-details">
+                <div class="chart-mini-donut" style="background: conic-gradient(#3b82f6 0 79.2deg,#22c55e 79.2deg 200deg,#0f172a 200deg 360deg);">
+                    <div class="chart-mini-label">22%</div>
+                </div>
+                <div class="detail-legend">
+                    <div class="detail-item"><div class="detail-color" style="background:#3b82f6;"></div>Capacitación y desarrollo</div>
+                    <div class="detail-item"><div class="detail-color" style="background:#22c55e;"></div>Formación e intervención educativa</div>
+                    <div class="detail-item"><div class="detail-color" style="background:#0f172a;"></div>Otras funciones</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="stat-card">
+            <div class="stat-question">Preparación profesional percibida</div>
+            <div class="stat-number" data-target="43">0%</div>
+            <div class="stat-label">La mayoría la considera alta.</div>
+            <div class="stat-details">
+                <div class="chart-mini-donut" style="background: conic-gradient(#3b82f6 0 154.8deg,#1d4ed8 154.8deg 309.6deg,#9ca3af 309.6deg 360deg);">
+                    <div class="chart-mini-label">43%</div>
+                </div>
+                <div class="detail-legend">
+                    <div class="detail-item"><div class="detail-color" style="background:#3b82f6;"></div>Alta</div>
+                    <div class="detail-item"><div class="detail-color" style="background:#1d4ed8;"></div>Máxima</div>
+                    <div class="detail-item"><div class="detail-color" style="background:#9ca3af;"></div>Otros niveles</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7 -->
+        <div class="stat-card">
+            <div class="stat-question">Mejorar reconocimiento del pedagogo</div>
+            <div class="stat-number" data-target="29">0%</div>
+            <div class="stat-label">Clave: difundir su labor.</div>
+            <div class="stat-details">
+                <div class="chart-mini-donut" style="background: conic-gradient(#3b82f6 0 104.4deg,#f97316 104.4deg 220deg,#22c55e 220deg 360deg);">
+                    <div class="chart-mini-label">29%</div>
+                </div>
+                <div class="detail-legend">
+                    <div class="detail-item"><div class="detail-color" style="background:#3b82f6;"></div>Dar a conocer la carrera</div>
+                    <div class="detail-item"><div class="detail-color" style="background:#f97316;"></div>Reconocer su impacto</div>
+                    <div class="detail-item"><div class="detail-color" style="background:#22c55e;"></div>Abrir más espacios laborales</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8 -->
+        <div class="stat-card">
+            <div class="stat-question">Fortalecer la formación del pedagogo</div>
+            <div class="stat-number" data-target="49">0%</div>
+            <div class="stat-label">Énfasis en formación integral.</div>
+            <div class="stat-details">
+                <div class="chart-mini-donut" style="background: conic-gradient(#3b82f6 0 176.4deg,#a855f7 176.4deg 260deg,#22c55e 260deg 360deg);">
+                    <div class="chart-mini-label">49%</div>
+                </div>
+                <div class="detail-legend">
+                    <div class="detail-item"><div class="detail-color" style="background:#3b82f6;"></div>Formación académica sólida</div>
+                    <div class="detail-item"><div class="detail-color" style="background:#a855f7;"></div>Empatía e inclusión</div>
+                    <div class="detail-item"><div class="detail-color" style="background:#22c55e;"></div>Comunicación y práctica</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="survey-cta">
+        <a href="encuesta.html" class="survey-button">
+            Responder encuesta
+        </a>
+
+    </div>
+</section>
+
+<footer class="footer">
+    <p>© 2025 Carrera de Pedagogía - Proyecto Integrador. Todos los derechos reservados.</p>
+</footer>
+
+<script>
+    // Scroll suave interno
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+
+    // Animar porcentajes en stats
+    function animateNumber(el) {
+        const end = parseInt(el.dataset.target);
+        if (isNaN(end)) return;
+        const suffix = '%';
+        let startTimestamp = null;
+
+        function step(timestamp) {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / 1200, 1);
+            const value = Math.floor(progress * end);
+            el.textContent = value + suffix;
+            if (progress < 1) window.requestAnimationFrame(step);
+        }
+
+        window.requestAnimationFrame(step);
+    }
+
+    const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const nums = entry.target.querySelectorAll('.stat-number');
+                nums.forEach(n => animateNumber(n));
+                statsObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+
+    const statsSection = document.querySelector('.stats-section');
+    if (statsSection) {
+        statsObserver.observe(statsSection);
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área Organizacional | Pedagogía</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0f172a;
+            color: #111827;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; }
+
+        /* HEADER (coherente con el sitio) */
+        .header {
+            background: linear-gradient(135deg, #f97316 0%, #fb923c 40%, #f97316 100%);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 18px rgba(0,0,0,0.25);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 14px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+        }
+
+        .logo-img {
+            width: 62px;
+            height: auto;
+            border-radius: 10px;
+            object-fit: contain;
+            background-color: white;
+            padding: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+        }
+
+        .logo-text h1 {
+            font-size: 1.02em;
+            font-weight: 600;
+        }
+
+        .logo-text p {
+            font-size: 0.72em;
+            opacity: 0.9;
+        }
+
+        .menu {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .menu-item { position: relative; }
+
+        .menu-link {
+            color: #fff;
+            font-weight: 500;
+            font-size: 0.92em;
+            padding: 6px 0;
+            display: inline-block;
+            transition: all 0.25s ease;
+        }
+
+        .menu-link:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .menu-link.active {
+            border-bottom: 2px solid #111827;
+        }
+
+        .submenu {
+            position: absolute;
+            top: 100%;
+            left: -20px;
+            background: #ffffff;
+            min-width: 260px;
+            box-shadow: 0 12px 40px rgba(15,23,42,0.25);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.25s ease;
+            border-radius: 10px;
+            margin-top: 10px;
+            padding: 10px 0;
+            z-index: 1200;
+        }
+
+        .menu-item:hover .submenu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .submenu li { list-style: none; }
+
+        .submenu a {
+            display: block;
+            padding: 10px 22px;
+            font-size: 0.88em;
+            color: #111827;
+            transition: all 0.2s ease;
+        }
+
+        .submenu a:hover {
+            background: #fff7ed;
+            color: #f97316;
+            padding-left: 28px;
+        }
+
+        /* HERO ORGANIZACIONAL */
+        .hero-org {
+            position: relative;
+            min-height: 430px;
+            display: flex;
+            align-items: flex-end;
+            overflow: hidden;
+            color: #111827;
+            background:
+                radial-gradient(circle at 0 0, rgba(255,247,237,0.22), transparent 60%),
+                radial-gradient(circle at 100% 0, rgba(254,243,199,0.24), transparent 55%),
+                linear-gradient(180deg, #111827 0%, #0f172a 40%, #020817 100%);
+        }
+
+        .hero-org-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 80px 40px 40px;
+            display: grid;
+            grid-template-columns: 1.7fr 1.3fr;
+            gap: 40px;
+            position: relative;
+            z-index: 2;
+            align-items: center;
+        }
+
+        .hero-kicker {
+            font-size: 0.78em;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: #fed7aa;
+            margin-bottom: 6px;
+        }
+
+        .hero-org h1 {
+            font-size: 2.7em;
+            line-height: 1.18;
+            font-weight: 700;
+            color: #fefce8;
+            margin-bottom: 10px;
+        }
+
+        .hero-org p {
+            font-size: 1em;
+            max-width: 620px;
+            color: #e5e7eb;
+            line-height: 1.7;
+        }
+
+        .hero-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .hero-pill {
+            font-size: 0.75em;
+            padding: 6px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(254,215,170,0.9);
+            color: #fed7aa;
+            backdrop-filter: blur(4px);
+        }
+
+        .hero-card {
+            background: rgba(15,23,42,0.98);
+            border-radius: 22px;
+            padding: 18px 18px 16px;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.7);
+            color: #f9fafb;
+            display: grid;
+            gap: 8px;
+            border: 1px solid rgba(248,250,252,0.06);
+            animation: riseIn 0.8s ease-out 0.15s both;
+        }
+
+        .hero-card-title {
+            font-size: 0.8em;
+            color: #fed7aa;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+        }
+
+        .hero-card h2 {
+            font-size: 1.25em;
+            color: #fefce8;
+        }
+
+        .hero-card p {
+            font-size: 0.88em;
+            color: #d1d5db;
+            line-height: 1.7;
+        }
+
+        .hero-card-stats {
+            display: flex;
+            gap: 16px;
+            margin-top: 4px;
+        }
+
+        .hero-card-stat span {
+            display: block;
+        }
+
+        .hero-card-stat .num {
+            font-size: 1.35em;
+            font-weight: 600;
+            color: #fb923c;
+        }
+
+        .hero-card-stat .label {
+            font-size: 0.7em;
+            color: #9ca3af;
+        }
+
+        .hero-card-cta {
+            margin-top: 4px;
+        }
+
+        .hero-card-cta a {
+            display: inline-block;
+            padding: 8px 18px;
+            border-radius: 999px;
+            font-size: 0.8em;
+            font-weight: 600;
+            color: #111827;
+            background: linear-gradient(135deg,#fb923c,#fed7aa);
+            box-shadow: 0 10px 28px rgba(0,0,0,0.9);
+            transition: all 0.25s ease;
+        }
+
+        .hero-card-cta a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 36px rgba(0,0,0,1);
+        }
+
+        @keyframes riseIn {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* SECCIONES GENERALES */
+        .section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 40px 40px;
+            position: relative;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 24px;
+            margin-bottom: 26px;
+        }
+
+        .section-kicker {
+            font-size: 0.78em;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #f97316;
+            margin-bottom: 4px;
+        }
+
+        .section-title {
+            font-size: 1.9em;
+            color: #f97316;
+        }
+
+        .section-subtitle {
+            font-size: 0.92em;
+            color: #6b7280;
+            max-width: 520px;
+            line-height: 1.7;
+        }
+
+        .pill-note {
+            font-size: 0.78em;
+            padding: 5px 12px;
+            border-radius: 999px;
+            background: #fff7ed;
+            color: #9a3412;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(18px);
+            transition: all 0.6s ease-out;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* RECURSOS HUMANOS */
+        .grid-hr {
+            display: grid;
+            grid-template-columns: minmax(0,1.6fr) minmax(0,1.4fr);
+            gap: 26px;
+            align-items: stretch;
+        }
+
+        .card-soft {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 20px 22px 18px;
+            box-shadow: 0 16px 40px rgba(15,23,42,0.08);
+            border: 1px solid #fee2e2;
+            display: grid;
+            gap: 8px;
+        }
+
+        .card-soft h3 {
+            font-size: 1.1em;
+            color: #111827;
+        }
+
+        .card-soft p {
+            font-size: 0.9em;
+            color: #4b5563;
+            line-height: 1.7;
+        }
+
+        .bullet-list {
+            font-size: 0.86em;
+            color: #4b5563;
+            display: grid;
+            gap: 4px;
+            margin-top: 4px;
+        }
+
+        .bullet-list span::before {
+            content: "• ";
+            color: #f97316;
+            font-weight: bold;
+        }
+
+        .gallery-hr {
+            display: grid;
+            grid-template-columns: repeat(2,minmax(0,1fr));
+            gap: 10px;
+        }
+
+        .img-card {
+            position: relative;
+            border-radius: 14px;
+            overflow: hidden;
+            height: 120px;
+            background: #111827;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .img-card.large {
+            grid-column: span 2;
+            height: 140px;
+        }
+
+        .img-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: saturate(1.05);
+            transition: all 0.25s ease;
+        }
+
+        .img-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 34px rgba(15,23,42,0.4);
+        }
+
+        .img-card:hover img {
+            transform: scale(1.05);
+            filter: saturate(1.15);
+        }
+
+        .img-label {
+            position: absolute;
+            left: 8px;
+            bottom: 6px;
+            padding: 3px 8px;
+            font-size: 0.64em;
+            border-radius: 999px;
+            background: rgba(17,24,39,0.92);
+            color: #fed7aa;
+        }
+
+        /* CAPACITACIÓN */
+        .cap-grid {
+            display: grid;
+            grid-template-columns: minmax(0,1.4fr) minmax(0,1.6fr);
+            gap: 26px;
+            align-items: stretch;
+        }
+
+        .cap-steps {
+            display: grid;
+            gap: 8px;
+            margin-top: 6px;
+            font-size: 0.86em;
+            color: #4b5563;
+        }
+
+        .cap-steps span::before {
+            content: "▹ ";
+            color: #f97316;
+        }
+
+        .cap-gallery {
+            display: grid;
+            grid-template-columns: repeat(2,minmax(0,1fr));
+            gap: 10px;
+        }
+
+        /* GESTIÓN DEL CAMBIO */
+        .change-grid {
+            display: grid;
+            grid-template-columns: minmax(0,1.6fr) minmax(0,1.4fr);
+            gap: 26px;
+            align-items: stretch;
+        }
+
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 4px;
+        }
+
+        .tag {
+            font-size: 0.7em;
+            padding: 4px 9px;
+            border-radius: 999px;
+            background: #fff7ed;
+            color: #9a3412;
+        }
+
+        /* CULTURA INSTITUCIONAL */
+        .culture-grid {
+            display: grid;
+            grid-template-columns: minmax(0,1.4fr) minmax(0,1.6fr);
+            gap: 26px;
+            align-items: stretch;
+        }
+
+        .culture-pill {
+            font-size: 0.74em;
+            padding: 5px 10px;
+            border-radius: 999px;
+            background: #fef3c7;
+            color: #9a3412;
+            display: inline-block;
+            margin-top: 4px;
+        }
+
+        .culture-gallery {
+            display: grid;
+            grid-template-columns: repeat(3,minmax(0,1fr));
+            gap: 8px;
+        }
+
+        .culture-img {
+            position: relative;
+            border-radius: 14px;
+            overflow: hidden;
+            height: 90px;
+            background: #111827;
+            transition: all 0.25s ease;
+        }
+
+        .culture-img.large {
+            grid-column: span 3;
+            height: 120px;
+        }
+
+        .culture-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: saturate(1.1);
+            transition: all 0.25s ease;
+        }
+
+        .culture-img:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(15,23,42,0.45);
+        }
+
+        .culture-img:hover img {
+            transform: scale(1.04);
+        }
+
+        .culture-label {
+            position: absolute;
+            left: 6px;
+            bottom: 6px;
+            padding: 3px 7px;
+            font-size: 0.6em;
+            border-radius: 999px;
+            background: rgba(17,24,39,0.95);
+            color: #fed7aa;
+        }
+
+        /* CTA FINAL */
+        .org-cta-bottom {
+            max-width: 1400px;
+            margin: 16px auto 50px;
+            padding: 22px 40px 26px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            border-radius: 24px;
+            background:
+                radial-gradient(circle at 0 0,rgba(248,250,252,0.16),transparent),
+                radial-gradient(circle at 100% 0,rgba(254,215,170,0.2),transparent),
+                #020817;
+            box-shadow: 0 18px 48px rgba(0,0,0,0.9);
+            color: #e5e7eb;
+        }
+
+        .org-cta-bottom p {
+            font-size: 0.9em;
+            max-width: 650px;
+            color: #d1d5db;
+        }
+
+        .org-cta-bottom strong {
+            color: #fed7aa;
+        }
+
+        .org-cta-bottom a {
+            padding: 10px 22px;
+            border-radius: 999px;
+            background: #fb923c;
+            color: #111827;
+            font-weight: 600;
+            font-size: 0.86em;
+            box-shadow: 0 14px 40px rgba(0,0,0,1);
+            transition: all 0.25s ease;
+        }
+
+        .org-cta-bottom a:hover {
+            transform: translateY(-2px);
+            background: #ea580c;
+            color: #fefce8;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: #020817;
+            color: #6b7280;
+            padding: 22px 40px 24px;
+            text-align: center;
+            font-size: 0.78em;
+        }
+
+        @media (max-width: 980px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .hero-org-inner {
+                grid-template-columns: 1fr;
+                padding-top: 70px;
+            }
+            .hero-card {
+                order: -1;
+            }
+            .section {
+                padding: 40px 20px 26px;
+            }
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .grid-hr,
+            .cap-grid,
+            .change-grid,
+            .culture-grid {
+                grid-template-columns: 1fr;
+            }
+            .org-cta-bottom {
+                flex-direction: column;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="nav-container">
+        <div class="logo">
+            <img src="LOGO.JPG" alt="Logo Carrera de Pedagogía" class="logo-img">
+            <div class="logo-text">
+                <h1>PEDAGOGÍA 4to CUATRIMESTRE</h1>
+                <p>Proyecto Integrador 26-1</p>
+            </div>
+        </div>
+        <nav>
+            <ul class="menu">
+                <li class="menu-item"><a href="index.html" class="menu-link">Inicio</a></li>
+
+                <li class="menu-item">
+                    <a href="educacional.html" class="menu-link">Educación Formal</a>
+                    <ul class="submenu">
+                        <li><a href="educacional.html#escuela-formal">Escuela formal</a></li>
+                        <li><a href="educacional.html#educacion-especial">Educación especial</a></li>
+                        <li><a href="educacional.html#investigacion-politicas">Investigación y políticas</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item">
+                    <a href="gestion-tecnologia.html" class="menu-link">Tecnología en la Gestión Educativa</a>
+                    <ul class="submenu">
+                        <li><a href="gestion-tecnologia.html#herramientas">Herramientas digitales</a></li>
+                        <li><a href="gestion-tecnologia.html#contenidos">Contenidos digitales</a></li>
+                        <li><a href="gestion-tecnologia.html#pedagogias">Pedagogías emergentes</a></li>
+                        <li><a href="gestion-tecnologia.html#evaluacion">Evaluación digital</a></li>
+                        <li><a href="gestion-tecnologia.html#desarrollo">Desarrollo profesional</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item">
+                    <a href="organizacional.html" class="menu-link active">Organizacional</a>
+                    <ul class="submenu">
+                        <li><a href="#rrhh">Recursos humanos</a></li>
+                        <li><a href="#capacitacion">Capacitación</a></li>
+                        <li><a href="#cambio">Gestión del cambio</a></li>
+                        <li><a href="#cultura">Cultura institucional</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item">
+                    <a href="socio-comunitario.html" class="menu-link">Socio-Comunitario</a>
+                    <ul class="submenu">
+                        <li><a href="socio-comunitario.html#salud">Sector salud</a></li>
+                        <li><a href="socio-comunitario.html#servicio">Servicio comunitario</a></li>
+                        <li><a href="socio-comunitario.html#reinsercion">Reinserción social</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item">
+                    <a href="encuesta.html" class="menu-link">Encuesta</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- HERO -->
+<section class="hero-org">
+    <div class="hero-org-inner">
+        <div>
+            <div class="hero-kicker">Área Organizacional</div>
+            <h1>Aprendizaje estratégico para transformar empresas e instituciones.</h1>
+            <p>
+                La Pedagogía Organizacional integra la educación con la gestión del talento humano.
+                Diseñamos experiencias formativas, procesos de cambio y culturas colaborativas que
+                alinean el desarrollo de las personas con la visión de la organización.
+            </p>
+            <div class="hero-pills">
+                <div class="hero-pill">Recursos Humanos</div>
+                <div class="hero-pill">Capacitación y desarrollo</div>
+                <div class="hero-pill">Gestión del cambio</div>
+                <div class="hero-pill">Cultura institucional</div>
+            </div>
+        </div>
+
+        <div class="hero-card">
+            <div class="hero-card-title">Pedagogía aplicada a las organizaciones</div>
+            <h2>El pedagogo como arquitecto del aprendizaje corporativo.</h2>
+            <p>
+                Analiza necesidades, diseña programas, acompaña procesos de innovación
+                y mide el impacto en el clima laboral, la productividad y la cohesión del equipo.
+            </p>
+            <div class="hero-card-stats">
+                <div class="hero-card-stat">
+                    <span class="num">+30</span>
+                    <span class="label">Programas formativos diseñados</span>
+                </div>
+                <div class="hero-card-stat">
+                    <span class="num">+70%</span>
+                    <span class="label">Mejora en participación del personal</span>
+                </div>
+            </div>
+            <div class="hero-card-cta">
+                <a href="#rrhh">Explorar áreas organizacionales</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- RECURSOS HUMANOS -->
+<section class="section" id="rrhh">
+    <div class="section-header">
+        <div>
+            <div class="section-kicker">Recursos humanos</div>
+            <h2 class="section-title">Gestión del talento con mirada humana.</h2>
+            <p class="section-subtitle">
+                El pedagogo organizacional participa en la selección, evaluación y acompañamiento del personal,
+                construyendo perfiles, rutas de desarrollo y procesos de inducción coherentes con los valores institucionales.
+            </p>
+        </div>
+        <div class="pill-note">Perfiles por competencias • Onboarding pedagógico • Evaluación integral</div>
+    </div>
+
+    <div class="grid-hr">
+        <div class="card-soft reveal">
+            <h3>Diseño de procesos de talento humano</h3>
+            <p>
+                Desde un enfoque formativo, se analizan los puestos, se identifican competencias clave
+                y se crean estrategias para atraer, seleccionar y retener a las personas adecuadas.
+            </p>
+            <div class="bullet-list">
+                <span>Elaboración de perfiles y matrices de competencias.</span>
+                <span>Diseño de entrevistas, dinámicas y pruebas con sentido pedagógico.</span>
+                <span>Programas de inducción que vinculan cultura, misión y valores.</span>
+                <span>Acompañamiento en evaluaciones de desempeño y planes de mejora.</span>
+            </div>
+        </div>
+
+        <div class="gallery-hr reveal">
+            <!-- Usa tus imágenes org1-org5 -->
+            <div class="img-card large">
+                <img src="org1.jpg" alt="Profesionales en entorno corporativo">
+                <div class="img-label">Mapa de talento</div>
+            </div>
+            <div class="img-card">
+                <img src="org2.jpg" alt="Trabajo colaborativo con tecnología">
+                <div class="img-label">Trabajo colaborativo</div>
+            </div>
+            <div class="img-card">
+                <img src="org3.jpg" alt="Análisis de datos en equipo">
+                <div class="img-label">Datos para decisiones</div>
+            </div>
+            <div class="img-card">
+                <img src="org4.jpg" alt="Reunión estratégica">
+                <div class="img-label">Reuniones formativas</div>
+            </div>
+            <div class="img-card">
+                <img src="org5.jpg" alt="Equipo diverso en círculo">
+                <div class="img-label">Círculos de diálogo</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CAPACITACIÓN -->
+<section class="section" id="capacitacion">
+    <div class="section-header">
+        <div>
+            <div class="section-kicker">Capacitación y desarrollo</div>
+            <h2 class="section-title">Formación continua alineada a los objetivos.</h2>
+            <p class="section-subtitle">
+                Más que cursos aislados, la capacitación se concibe como un proceso estratégico:
+                diagnosticar, diseñar, implementar y evaluar experiencias que generen cambios reales en el trabajo diario.
+            </p>
+        </div>
+        <div class="pill-note">Andragogía • E-learning • Evaluación del impacto</div>
+    </div>
+
+    <div class="cap-grid">
+        <div class="card-soft reveal">
+            <h3>Del diagnóstico a la acción</h3>
+            <p>
+                El pedagogo organiza rutas formativas según las metas de la organización,
+                utilizando metodologías activas, entornos virtuales y acompañamiento cercano.
+            </p>
+            <div class="cap-steps">
+                <span>Detectar necesidades de capacitación (DNC).</span>
+                <span>Diseñar programas vivenciales, digitales o híbridos.</span>
+                <span>Acompañar a facilitadores y participantes.</span>
+                <span>Medir resultados: desempeño, clima y satisfacción.</span>
+            </div>
+        </div>
+
+        <div class="cap-gallery reveal">
+            <!-- Usa org6, org7, etc. -->
+            <div class="img-card">
+                <img src="org6.jpg" alt="Presentación de resultados">
+                <div class="img-label">Indicadores claros</div>
+            </div>
+            <div class="img-card">
+                <img src="org7.jpg" alt="Equipo aprendiendo junto">
+                <div class="img-label">Aprendizaje colaborativo</div>
+            </div>
+            <div class="img-card large">
+                <img src="org7b.jpg" alt="Capacitación en sala" onerror="this.style.display='none';">
+                <!-- Si no tienes org7b.jpg, puedes borrar esta tarjeta o cambiar nombre -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- GESTIÓN DEL CAMBIO -->
+<section class="section" id="cambio">
+    <div class="section-header">
+        <div>
+            <div class="section-kicker">Gestión del cambio</div>
+            <h2 class="section-title">Acompañar transiciones con claridad y empatía.</h2>
+            <p class="section-subtitle">
+                Frente a nuevas tecnologías, modelos de trabajo o políticas internas,
+                el pedagogo diseña estrategias comunicativas y formativas que disminuyen la resistencia
+                y fortalecen el sentido de pertenencia.
+            </p>
+        </div>
+        <div class="pill-note">Comunicación clara • Participación • Flexibilidad</div>
+    </div>
+
+    <div class="change-grid">
+        <div class="gallery-hr reveal">
+            <!-- Usa org8-org12 -->
+            <div class="img-card">
+                <img src="org8.jpg" alt="Espacio de trabajo dinámico">
+                <div class="img-label">Nuevos entornos</div>
+            </div>
+            <div class="img-card">
+                <img src="org9.jpg" alt="Equipo diverso gestionando proyectos">
+                <div class="img-label">Innovación colectiva</div>
+            </div>
+            <div class="img-card">
+                <img src="org10.jpg" alt="Niños con tecnología educativa">
+                <div class="img-label">Transformación digital</div>
+            </div>
+            <div class="img-card">
+                <img src="org11.jpg" alt="Comunidad educativa activa">
+                <div class="img-label">Participación social</div>
+            </div>
+            <div class="img-card">
+                <img src="org12.jpg" alt="Aula colaborativa">
+                <div class="img-label">Aprendizaje flexible</div>
+            </div>
+        </div>
+
+        <div class="card-soft reveal">
+            <h3>Acciones clave del pedagogo en el cambio</h3>
+            <p>
+                Antes de imponer, se escucha. Se analizan percepciones, se construyen mensajes claros
+                y se crean espacios donde las personas comprenden el “para qué” de cada transformación.
+            </p>
+            <div class="tag-row">
+                <div class="tag">Diagnóstico de cultura y clima</div>
+                <div class="tag">Campañas internas pedagógicas</div>
+                <div class="tag">Talleres para líderes</div>
+                <div class="tag">Acompañamiento emocional</div>
+                <div class="tag">Evaluación del proceso</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CULTURA INSTITUCIONAL -->
+<section class="section" id="cultura">
+    <div class="section-header">
+        <div>
+            <div class="section-kicker">Cultura institucional</div>
+            <h2 class="section-title">Construir identidades que inspiren.</h2>
+            <p class="section-subtitle">
+                La cultura se vive en los símbolos, las relaciones y las decisiones diarias.
+                El pedagogo promueve valores, convivencia respetuosa y espacios donde cada persona se sabe parte del proyecto común.
+            </p>
+        </div>
+        <div class="pill-note">Valores compartidos • Clima positivo • Diversidad e inclusión</div>
+    </div>
+
+    <div class="culture-grid">
+        <div class="card-soft reveal">
+            <h3>Tejiendo comunidad dentro de la organización</h3>
+            <p>
+                A través de proyectos, campañas y experiencias simbólicas, se fortalecen la ética,
+                la participación y la diversidad como ejes centrales de la institución.
+            </p>
+            <span class="culture-pill">Comunicación horizontal</span>
+            <span class="culture-pill">Respeto a la diversidad cultural</span>
+            <span class="culture-pill">Sentido de pertenencia</span>
+        </div>
+
+        <div class="culture-gallery reveal">
+            <!-- Usa org13-org17 -->
+            <div class="culture-img large">
+                <img src="org13.jpg" alt="Equipo dialogando">
+                <div class="culture-label">Equipos que escuchan</div>
+            </div>
+            <div class="culture-img">
+                <img src="org14.jpg" alt="Valores e instituciones">
+                <div class="culture-label">Principios compartidos</div>
+            </div>
+            <div class="culture-img">
+                <img src="org15.jpg" alt="Aula con ideas y creatividad">
+                <div class="culture-label">Pensamiento crítico</div>
+            </div>
+            <div class="culture-img">
+                <img src="org16.jpg" alt="Niños conviviendo felices">
+                <div class="culture-label">Convivencia</div>
+            </div>
+            <div class="culture-img">
+                <img src="org17.jpg" alt="Diversidad cultural">
+                <div class="culture-label">Inclusión global</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="org-cta-bottom" id="contacto">
+    <p>
+        <strong>¿Te interesa liderar procesos de formación, cambio y cultura en organizaciones?</strong><br>
+        La línea organizacional de Pedagogía te brinda herramientas para diagnosticar, diseñar y acompañar
+        estrategias que ponen a las personas en el centro sin perder de vista los resultados.
+    </p>
+    <a href="index.html#areas">Volver a las áreas</a>
+</section>
+
+<footer class="footer">
+    © 2025 Carrera de Pedagogía · Área Organizacional · Proyecto Integrador 26-1
+</footer>
+
+<script>
+    // Scroll suave interno
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', e => {
+            const target = document.querySelector(link.getAttribute('href'));
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+
+    // Animación reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.18 });
+
+    revealEls.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

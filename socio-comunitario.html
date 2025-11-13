@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socio-Comunitario | Pedagogía</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #070718;
+            color: #4b164c;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; }
+
+        /* HEADER (coherente con las demás páginas) */
+        .header {
+            background: linear-gradient(135deg, #ec4899 0%, #db2777 40%, #8b5cf6 100%);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 18px rgba(0,0,0,0.35);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 14px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+        }
+
+        .logo-img {
+            width: 62px;
+            height: auto;
+            border-radius: 10px;
+            object-fit: contain;
+            background-color: white;
+            padding: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+        }
+
+        .logo-text h1 {
+            font-size: 1.02em;
+            font-weight: 600;
+        }
+
+        .logo-text p {
+            font-size: 0.72em;
+            opacity: 0.9;
+        }
+
+        .menu {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .menu-item {
+            position: relative;
+        }
+
+        .menu-link {
+            color: #fff;
+            font-weight: 500;
+            font-size: 0.92em;
+            padding: 6px 0;
+            display: inline-block;
+            transition: all 0.25s ease;
+        }
+
+        .menu-link:hover {
+            opacity: 0.85;
+            transform: translateY(-1px);
+        }
+
+        .menu-link.active {
+            border-bottom: 2px solid #fbbf24;
+        }
+
+        .submenu {
+            position: absolute;
+            top: 100%;
+            left: -20px;
+            background: #ffffff;
+            min-width: 260px;
+            box-shadow: 0 12px 40px rgba(148,27,89,0.22);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.25s ease;
+            border-radius: 10px;
+            margin-top: 10px;
+            padding: 10px 0;
+            z-index: 1200;
+        }
+
+        .menu-item:hover .submenu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .submenu li { list-style: none; }
+
+        .submenu a {
+            display: block;
+            padding: 10px 22px;
+            font-size: 0.88em;
+            color: #111827;
+            transition: all 0.2s ease;
+        }
+
+        .submenu a:hover {
+            background: #fdf2ff;
+            color: #db2777;
+            padding-left: 28px;
+        }
+
+        /* HERO SOCIO-COMUNITARIO */
+        .hero-sc {
+            position: relative;
+            background:
+                linear-gradient(135deg, rgba(236,72,153,0.92), rgba(219,39,119,0.9), rgba(79,70,229,0.9)),
+                url('sc11.jpg') center/cover no-repeat;
+            min-height: 430px;
+            display: flex;
+            align-items: flex-end;
+            overflow: hidden;
+            color: #fff;
+        }
+
+        .hero-sc-overlay {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 0 0, rgba(255,255,255,0.16), transparent 55%),
+                radial-gradient(circle at 100% 0, rgba(251,113,133,0.16), transparent 55%);
+            mix-blend-mode: screen;
+            pointer-events: none;
+        }
+
+        .hero-sc-inner {
+            position: relative;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 80px 40px 40px;
+            display: grid;
+            grid-template-columns: minmax(0,1.7fr) minmax(0,1.3fr);
+            gap: 40px;
+            align-items: center;
+        }
+
+        .hero-kicker {
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: #fee2e2;
+            margin-bottom: 6px;
+        }
+
+        .hero-sc h1 {
+            font-size: 2.6em;
+            line-height: 1.18;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .hero-sc p {
+            font-size: 1em;
+            max-width: 620px;
+            opacity: 0.97;
+            line-height: 1.8;
+        }
+
+        .hero-tags {
+            margin-top: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .hero-tag {
+            font-size: 0.78em;
+            padding: 6px 13px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.75);
+            backdrop-filter: blur(6px);
+        }
+
+        .hero-card {
+            align-self: stretch;
+            background: rgba(8,6,22,0.98);
+            border-radius: 20px;
+            padding: 18px 18px 16px;
+            box-shadow: 0 18px 50px rgba(15,23,42,0.95);
+            display: grid;
+            gap: 10px;
+            animation: riseIn 0.9s ease-out 0.1s both;
+        }
+
+        .hero-card-title {
+            font-size: 0.86em;
+            color: #f9a8d4;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+        }
+
+        .hero-card h2 {
+            font-size: 1.25em;
+            color: #ffe4e6;
+        }
+
+        .hero-card p {
+            font-size: 0.9em;
+            color: #e5e7eb;
+            line-height: 1.7;
+        }
+
+        .hero-stat-row {
+            display: flex;
+            gap: 18px;
+            margin-top: 4px;
+        }
+
+        .hero-stat {
+            flex: 1;
+        }
+
+        .hero-stat span {
+            display: block;
+        }
+
+        .hero-stat .num {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #fb7185;
+        }
+
+        .hero-stat .label {
+            font-size: 0.72em;
+            color: #9ca3af;
+        }
+
+        .hero-cta {
+            margin-top: 6px;
+        }
+
+        .hero-cta a {
+            display: inline-block;
+            padding: 8px 18px;
+            border-radius: 999px;
+            font-size: 0.8em;
+            color: #111827;
+            font-weight: 600;
+            background: linear-gradient(135deg,#fb7185,#fecaca);
+            box-shadow: 0 14px 30px rgba(15,23,42,1);
+            transition: all 0.25s ease;
+        }
+
+        .hero-cta a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 40px rgba(15,23,42,1);
+        }
+
+        @keyframes riseIn {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* SECCIONES GENERALES */
+        .section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 40px 40px;
+            position: relative;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 24px;
+            margin-bottom: 26px;
+        }
+
+        .section-kicker {
+            font-size: 0.78em;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #ec4899;
+            margin-bottom: 4px;
+        }
+
+        .section-title {
+            font-size: 1.9em;
+            color: #4b164c;
+        }
+
+        .section-subtitle {
+            font-size: 0.92em;
+            color: #6b7280;
+            max-width: 520px;
+            line-height: 1.7;
+        }
+
+        .pill-note {
+            font-size: 0.78em;
+            padding: 5px 12px;
+            border-radius: 999px;
+            background: #fdf2ff;
+            color: #db2777;
+        }
+
+        /* SECTOR SALUD */
+        .sc-grid {
+            display: grid;
+            grid-template-columns: minmax(0,1.5fr) minmax(0,1.5fr);
+            gap: 26px;
+            align-items: stretch;
+        }
+
+        .text-card {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 22px 22px 20px;
+            box-shadow: 0 16px 40px rgba(15,23,42,0.10);
+            border: 1px solid #fee2e2;
+            display: grid;
+            gap: 10px;
+        }
+
+        .text-card h3 {
+            font-size: 1.14em;
+            color: #9f1239;
+        }
+
+        .text-card p {
+            font-size: 0.9em;
+            color: #4b5563;
+            line-height: 1.8;
+        }
+
+        .bullets {
+            display: grid;
+            gap: 5px;
+            font-size: 0.86em;
+            color: #4b5563;
+        }
+
+        .bullets span::before {
+            content: "• ";
+            color: #ec4899;
+            font-weight: bold;
+        }
+
+        .gallery-health {
+            display: grid;
+            grid-template-columns: repeat(2,minmax(0,1fr));
+            gap: 10px;
+        }
+
+        .g-item {
+            position: relative;
+            border-radius: 14px;
+            overflow: hidden;
+            height: 120px;
+            background: #111827;
+            cursor: pointer;
+            transition: all 0.28s ease;
+        }
+
+        .g-item.large {
+            grid-column: span 2;
+            height: 140px;
+        }
+
+        .g-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: all 0.28s ease;
+        }
+
+        .g-item:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(15,23,42,0.6);
+        }
+
+        .g-item:hover img {
+            transform: scale(1.06);
+            filter: saturate(1.1);
+        }
+
+        .g-label {
+            position: absolute;
+            left: 8px;
+            bottom: 6px;
+            padding: 3px 8px;
+            font-size: 0.65em;
+            border-radius: 999px;
+            background: rgba(8,6,22,0.9);
+            color: #ffe4e6;
+        }
+
+        /* REINSERCIÓN SOCIAL */
+        .reinsercion-grid {
+            display: grid;
+            grid-template-columns: minmax(0,1.4fr) minmax(0,1.6fr);
+            gap: 26px;
+            align-items: stretch;
+        }
+
+        .rein-card {
+            background: #0f172a;
+            border-radius: 18px;
+            padding: 20px 20px 18px;
+            box-shadow: 0 18px 45px rgba(15,23,42,0.95);
+            border: 1px solid rgba(248,113,150,0.35);
+            color: #e5e7eb;
+            display: grid;
+            gap: 8px;
+        }
+
+        .rein-card h3 {
+            font-size: 1.14em;
+            color: #fecdd3;
+        }
+
+        .rein-card p {
+            font-size: 0.88em;
+            color: #e5e7eb;
+            line-height: 1.7;
+        }
+
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .tag {
+            font-size: 0.7em;
+            padding: 4px 9px;
+            border-radius: 7px;
+            background: rgba(236,72,153,0.16);
+            color: #fecdd3;
+        }
+
+        .steps {
+            display: grid;
+            gap: 5px;
+            font-size: 0.8em;
+            color: #fecdd3;
+        }
+
+        .steps span::before {
+            content: "▹ ";
+            color: #fb7185;
+        }
+
+        .rein-gallery {
+            display: grid;
+            grid-template-columns: repeat(2,minmax(0,1fr));
+            gap: 10px;
+        }
+
+        .rein-img {
+            position: relative;
+            border-radius: 14px;
+            overflow: hidden;
+            height: 110px;
+            background: #111827;
+        }
+
+        .rein-img.large {
+            grid-column: span 2;
+            height: 130px;
+        }
+
+        .rein-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.25s ease;
+        }
+
+        .rein-img:hover img {
+            transform: scale(1.05);
+            filter: saturate(1.12);
+        }
+
+        .rein-caption {
+            position: absolute;
+            left: 8px;
+            bottom: 6px;
+            padding: 3px 7px;
+            font-size: 0.62em;
+            border-radius: 999px;
+            background: rgba(8,6,22,0.92);
+            color: #fecaca;
+        }
+
+        /* COMUNITARIA Y SOCIAL */
+        .comu-grid {
+            display: grid;
+            grid-template-columns: minmax(0,1.6fr) minmax(0,1.4fr);
+            gap: 26px;
+            align-items: stretch;
+        }
+
+        .chips-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 4px;
+        }
+
+        .chip {
+            font-size: 0.72em;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: #fdf2ff;
+            color: #db2777;
+        }
+
+        .comu-gallery {
+            background: linear-gradient(145deg,#fdf2ff,#fee2e2);
+            border-radius: 20px;
+            padding: 12px 12px 10px;
+            display: grid;
+            grid-template-columns: repeat(2,minmax(0,1fr));
+            gap: 8px;
+            box-shadow: 0 16px 40px rgba(15,23,42,0.16);
+        }
+
+        .comu-item {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            height: 105px;
+        }
+
+        .comu-item.large {
+            grid-column: span 2;
+            height: 120px;
+        }
+
+        .comu-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.25s ease;
+        }
+
+        .comu-item:hover img {
+            transform: scale(1.05);
+            filter: saturate(1.15);
+        }
+
+        .comu-label {
+            position: absolute;
+            left: 8px;
+            bottom: 6px;
+            padding: 3px 8px;
+            border-radius: 999px;
+            font-size: 0.63em;
+            background: rgba(131,24,67,0.96);
+            color: #fee2e2;
+        }
+
+        /* CTA FINAL */
+        .sc-cta-bottom {
+            max-width: 1400px;
+            margin: 10px auto 50px;
+            padding: 22px 40px 26px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            background:
+                radial-gradient(circle at 0 0,rgba(236,72,153,0.25),transparent),
+                radial-gradient(circle at 100% 0,rgba(79,70,229,0.18),transparent),
+                #070718;
+            color: #fde2e4;
+            border-radius: 24px;
+            box-shadow: 0 20px 55px rgba(15,23,42,0.98);
+        }
+
+        .sc-cta-bottom p {
+            font-size: 0.9em;
+            max-width: 700px;
+            color: #e5e7eb;
+        }
+
+        .sc-cta-bottom strong {
+            color: #f9a8d4;
+        }
+
+        .sc-cta-bottom a {
+            padding: 10px 22px;
+            border-radius: 999px;
+            background: #fb7185;
+            color: #111827;
+            font-weight: 600;
+            font-size: 0.86em;
+            box-shadow: 0 14px 40px rgba(15,23,42,1);
+            transition: all 0.25s ease;
+        }
+
+        .sc-cta-bottom a:hover {
+            transform: translateY(-2px);
+            background: #f97316;
+            color: #fff;
+        }
+
+        /* Reveal anim */
+        .reveal {
+            opacity: 0;
+            transform: translateY(18px);
+            transition: all 0.6s ease-out;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* FOOTER */
+        .footer {
+            background: #070718;
+            color: #9ca3af;
+            padding: 24px 40px 26px;
+            text-align: center;
+            font-size: 0.78em;
+        }
+
+        @media (max-width: 980px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .menu {
+                justify-content: center;
+            }
+            .hero-sc-inner {
+                grid-template-columns: 1fr;
+                padding-top: 70px;
+            }
+            .hero-card {
+                order: -1;
+            }
+            .section {
+                padding: 40px 20px 24px;
+            }
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .sc-grid,
+            .reinsercion-grid,
+            .comu-grid {
+                grid-template-columns: 1fr;
+            }
+            .sc-cta-bottom {
+                flex-direction: column;
+                padding: 20px;
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="nav-container">
+        <div class="logo">
+            <img src="LOGO.JPG" alt="Logo Carrera de Pedagogía" class="logo-img">
+            <div class="logo-text">
+                <h1>PEDAGOGÍA 4to CUATRIMESTRE</h1>
+                <p>Proyecto Integrador 26-1</p>
+            </div>
+        </div>
+        <nav>
+            <ul class="menu">
+                <li class="menu-item"><a href="index.html" class="menu-link">Inicio</a></li>
+
+                <li class="menu-item">
+                    <a href="educacional.html" class="menu-link">Educación Formal</a>
+                    <ul class="submenu">
+                        <li><a href="educacional.html#escuela-formal">Escuela formal</a></li>
+                        <li><a href="educacional.html#educacion-especial">Educación especial</a></li>
+                        <li><a href="educacional.html#investigacion-politicas">Investigación y políticas</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item">
+                    <a href="gestion-tecnologia.html" class="menu-link">Tecnología en la Gestión Educativa</a>
+                    <ul class="submenu">
+                        <li><a href="gestion-tecnologia.html#herramientas">Herramientas digitales</a></li>
+                        <li><a href="gestion-tecnologia.html#contenidos">Contenidos digitales</a></li>
+                        <li><a href="gestion-tecnologia.html#pedagogias">Pedagogías emergentes</a></li>
+                        <li><a href="gestion-tecnologia.html#evaluacion">Evaluación digital</a></li>
+                        <li><a href="gestion-tecnologia.html#desarrollo">Desarrollo profesional</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item">
+                    <a href="organizacional.html" class="menu-link">Organizacional</a>
+                    <ul class="submenu">
+                        <li><a href="organizacional.html#rrhh">Recursos humanos</a></li>
+                        <li><a href="organizacional.html#capacitacion">Capacitación</a></li>
+                        <li><a href="organizacional.html#cambio">Gestión del cambio</a></li>
+                        <li><a href="organizacional.html#cultura">Cultura institucional</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item">
+                    <a href="socio-comunitario.html" class="menu-link active">Socio-Comunitario</a>
+                    <ul class="submenu">
+                        <li><a href="#salud">Sector salud</a></li>
+                        <li><a href="#reinsercion">Centros de reinserción</a></li>
+                        <li><a href="#comunitaria">Comunitaria y social</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item">
+                    <a href="encuesta.html" class="menu-link">Encuesta</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- HERO -->
+<section class="hero-sc">
+    <div class="hero-sc-overlay"></div>
+    <div class="hero-sc-inner">
+        <div>
+            <div class="hero-kicker">Área Socio-Comunitaria</div>
+            <h1>Pedagogía que acompaña, cuida y transforma comunidades reales.</h1>
+            <p>
+                El ámbito socio-comunitario articula educación, salud, inclusión y justicia social.
+                Aquí el pedagogo interviene en hospitales, centros de reinserción y proyectos
+                comunitarios para garantizar el derecho a aprender en cualquier contexto de vida.
+            </p>
+            <div class="hero-tags">
+                <div class="hero-tag">Pedagogía hospitalaria</div>
+                <div class="hero-tag">Reinserción social</div>
+                <div class="hero-tag">Trabajo comunitario</div>
+                <div class="hero-tag">Inclusión y derechos humanos</div>
+            </div>
+        </div>
+        <div class="hero-card">
+            <div class="hero-card-title">Impacto socioeducativo</div>
+            <h2>Educadores que llevan esperanza, acompañamiento y aprendizaje donde más se necesita.</h2>
+            <p>
+                A través de proyectos, acompañamiento personalizado y acciones colectivas,
+                la pedagogía se convierte en puente entre las personas, sus historias y nuevas oportunidades.
+            </p>
+            <div class="hero-stat-row">
+                <div class="hero-stat">
+                    <span class="num">+25</span>
+                    <span class="label">Entornos comunitarios intervenidos</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="num">+70%</span>
+                    <span class="label">Proyectos con participación ciudadana</span>
+                </div>
+            </div>
+            <div class="hero-cta">
+                <a href="#salud">Explorar intervenciones</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTOR SALUD -->
+<section class="section" id="salud">
+    <div class="section-header">
+        <div>
+            <div class="section-kicker">Sector salud</div>
+            <h2 class="section-title">Pedagogía hospitalaria: aprender también cura.</h2>
+            <p class="section-subtitle">
+                La pedagogía hospitalaria acompaña a niñas, niños y adolescentes en procesos de enfermedad,
+                asegurando continuidad educativa, contención emocional y espacios de juego significativo.
+            </p>
+        </div>
+        <div class="pill-note">
+            Aulas hospitalarias • Escuelas en casa • Apoyo socioemocional
+        </div>
+    </div>
+
+    <div class="sc-grid">
+        <div class="text-card reveal">
+            <h3>Rol del pedagogo en contextos hospitalarios</h3>
+            <p>
+                Escucha, adapta y crea experiencias de aprendizaje flexibles para que el estudiante
+                siga vinculado con su escuela, su grupo y sus metas, respetando ritmos, tratamientos
+                y tiempos de descanso.
+            </p>
+            <div class="bullets">
+                <span>Diseño de actividades lúdicas y curriculares dentro del hospital.</span>
+                <span>Trabajo coordinado con médicos, psicólogos y familias.</span>
+                <span>Uso de recursos digitales y materiales portátiles.</span>
+                <span>Fortalecimiento de la autoestima y la esperanza.</span>
+            </div>
+        </div>
+
+        <div class="gallery-health reveal">
+            <!-- Ajusta nombres a tus archivos reales -->
+            <div class="g-item large">
+                <img src="sc1.jpg" alt="Aula hospitalaria con niños y equipo de salud">
+                <div class="g-label">Intervención pedagógica en sala</div>
+            </div>
+            <div class="g-item">
+                <img src="sc2.jpg" alt="Profesional salud con niña">
+                <div class="g-label">Vínculo humano</div>
+            </div>
+            <div class="g-item">
+                <img src="sc3.jpg" alt="Niños en actividades educativas en hospital">
+                <div class="g-label">Aprender en comunidad</div>
+            </div>
+            <div class="g-item">
+                <img src="sc4.jpg" alt="Lectura con niña hospitalizada">
+                <div class="g-label">Lectura acompañada</div>
+            </div>
+            <div class="g-item">
+                <img src="sc5.jpg" alt="Niño realizando actividad en cama">
+                <div class="g-label">Atención personalizada</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- REINSERCIÓN SOCIAL -->
+<section class="section" id="reinsercion">
+    <div class="section-header">
+        <div>
+            <div class="section-kicker">Centros de reinserción social</div>
+            <h2 class="section-title">La educación como camino para reconstruir proyectos de vida.</h2>
+            <p class="section-subtitle">
+                En centros de privación de la libertad, el pedagogo diseña procesos formativos que
+                promueven habilidades, reflexión crítica y nuevas oportunidades de participación social.
+            </p>
+        </div>
+        <div class="pill-note">
+            Alfabetización • Formación laboral • Ciudadanía y derechos
+        </div>
+    </div>
+
+    <div class="reinsercion-grid">
+        <div class="rein-card reveal">
+            <h3>Intervención pedagógica en contextos de encierro</h3>
+            <p>
+                Se construyen espacios de confianza donde la palabra, el estudio y el trabajo colectivo
+                ayudan a resignificar historias y fortalecer competencias para la reinserción.
+            </p>
+            <div class="tag-row">
+                <div class="tag">Programas académicos</div>
+                <div class="tag">Talleres artísticos</div>
+                <div class="tag">Formación para el trabajo</div>
+                <div class="tag">Educación en valores</div>
+            </div>
+            <div class="steps">
+                <span>Diagnosticar necesidades educativas y socioemocionales.</span>
+                <span>Diseñar trayectorias formativas flexibles y pertinentes.</span>
+                <span>Acompañar procesos individuales y grupales.</span>
+                <span>Evaluar avances hacia la reinserción social.</span>
+            </div>
+        </div>
+
+        <div class="rein-gallery reveal">
+            <!-- Ajusta con tus sc6 - sc10 -->
+            <div class="rein-img">
+                <img src="sc6.jpg" alt="Grupo en aula dentro de centro">
+                <div class="rein-caption">Espacios de estudio</div>
+            </div>
+            <div class="rein-img">
+                <img src="sc7.jpg" alt="Clase entre rejas">
+                <div class="rein-caption">Educación sin barreras</div>
+            </div>
+            <div class="rein-img">
+                <img src="sc8.jpg" alt="Personas frente a pantalla educativa">
+                <div class="rein-caption">Recursos audiovisuales</div>
+            </div>
+            <div class="rein-img">
+                <img src="sc9.jpg" alt="Personas escribiendo en aula">
+                <div class="rein-caption">Reflexión y escritura</div>
+            </div>
+            <div class="rein-img large">
+                <img src="sc10.jpg" alt="Grupo escuchando en taller">
+                <div class="rein-caption">Formación para la vida</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- COMUNITARIA Y SOCIAL -->
+<section class="section" id="comunitaria">
+    <div class="section-header">
+        <div>
+            <div class="section-kicker">Comunitaria y social</div>
+            <h2 class="section-title">Tejer redes con la comunidad: educación en movimiento.</h2>
+            <p class="section-subtitle">
+                El pedagogo articula escuelas, familias, organizaciones y espacios públicos
+                para impulsar proyectos que nacen de la propia comunidad: participación,
+                mediación, cultura, prevención y fortalecimiento del tejido social.
+            </p>
+        </div>
+        <div class="pill-note">
+            Diagnóstico participativo • Trabajo en red • Educación popular
+        </div>
+    </div>
+
+    <div class="comu-grid">
+        <div class="text-card reveal">
+            <h3>¿Qué hace el pedagogo comunitario?</h3>
+            <p>
+                Escucha realidades, reconoce saberes locales y construye junto con la gente
+                estrategias educativas que mejoran la calidad de vida: círculos de estudio,
+                talleres, campañas, acompañamiento a niñas, niños, jóvenes y personas adultas.
+            </p>
+            <div class="chips-row">
+                <div class="chip">Escuelas para familias</div>
+                <div class="chip">Participación juvenil</div>
+                <div class="chip">Prevención y bienestar</div>
+                <div class="chip">Mediación comunitaria</div>
+                <div class="chip">Fortalecimiento de redes</div>
+            </div>
+        </div>
+
+        <div class="comu-gallery reveal">
+            <!-- Usa sc11 - sc15 -->
+            <div class="comu-item large">
+                <img src="sc11.jpg" alt="Asamblea comunitaria al aire libre">
+                <div class="comu-label">Diálogo con la comunidad</div>
+            </div>
+            <div class="comu-item">
+                <img src="sc12.jpg" alt="Reunión con vecinos">
+                <div class="comu-label">Organización barrial</div>
+            </div>
+            <div class="comu-item">
+                <img src="sc13.jpg" alt="Aula llena con participación activa">
+                <div class="comu-label">Aprendizaje colectivo</div>
+            </div>
+            <div class="comu-item">
+                <img src="sc14.jpg" alt="Taller con jóvenes">
+                <div class="comu-label">Espacios seguros</div>
+            </div>
+            <div class="comu-item">
+                <img src="sc15.jpg" alt="Niñas y niños en círculo con educadores">
+                <div class="comu-label">Infancias protagonistas</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="sc-cta-bottom">
+    <p>
+        <strong>¿Te imaginas llevando la pedagogía a hospitales, centros de reinserción y comunidades?</strong><br>
+        El área socio-comunitaria forma profesionales capaces de diseñar intervenciones sensibles,
+        creativas y comprometidas con la dignidad de cada persona, allí donde aprender también es
+        un acto de justicia social.
+    </p>
+    <a href="index.html#areas">Volver a las áreas</a>
+</section>
+
+<footer class="footer">
+    © 2025 Carrera de Pedagogía · Área Socio-Comunitaria · Proyecto Integrador 26-1
+</footer>
+
+<script>
+    // Scroll suave interno
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', e => {
+            const target = document.querySelector(link.getAttribute('href'));
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+
+    // Animación reveal al hacer scroll
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.18 });
+
+    revealEls.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

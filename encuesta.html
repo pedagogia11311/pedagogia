@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encuesta | Carrera de Pedagogía</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: radial-gradient(circle at top,#111827,#020817);
+        color: #e5e7eb;
+        overflow-x: hidden;
+    }
+
+    a { text-decoration: none; }
+
+    /* HEADER igual que las demás páginas */
+    .header {
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 18px rgba(0,0,0,0.35);
+    }
+
+    .nav-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 14px 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #fff;
+    }
+
+    .logo-img {
+        width: 62px;
+        height: auto;
+        border-radius: 10px;
+        object-fit: contain;
+        background-color: white;
+        padding: 5px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+
+    .logo-text h1 {
+        font-size: 1.02em;
+        font-weight: 600;
+    }
+
+    .logo-text p {
+        font-size: 0.72em;
+        opacity: 0.9;
+    }
+
+    .menu {
+        list-style: none;
+        display: flex;
+        gap: 30px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .menu-item { position: relative; }
+
+    .menu-link {
+        color: #fff;
+        font-weight: 500;
+        font-size: 0.92em;
+        padding: 6px 0;
+        display: inline-block;
+        transition: all 0.25s ease;
+    }
+
+    .menu-link:hover {
+        opacity: 0.85;
+        transform: translateY(-1px);
+    }
+
+    .menu-link.active {
+        border-bottom: 2px solid #fbbf24;
+    }
+
+    .submenu {
+        position: absolute;
+        top: 100%;
+        left: -20px;
+        background: #ffffff;
+        min-width: 260px;
+        box-shadow: 0 12px 40px rgba(0,0,0,0.22);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+        transition: all 0.25s ease;
+        border-radius: 10px;
+        margin-top: 10px;
+        padding: 10px 0;
+        z-index: 1200;
+    }
+
+    .menu-item:hover .submenu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .submenu li { list-style: none; }
+
+    .submenu a {
+        display: block;
+        padding: 10px 22px;
+        font-size: 0.88em;
+        color: #111827;
+        transition: all 0.2s ease;
+    }
+
+    .submenu a:hover {
+        background: #f3f4ff;
+        color: #6366f1;
+        padding-left: 28px;
+    }
+
+    /* ENCUESTA */
+    .container {
+        max-width: 900px;
+        margin: 50px auto;
+        background: rgba(9,9,18,0.98);
+        border-radius: 25px;
+        padding: 40px;
+        box-shadow: 0 0 30px rgba(0,0,0,0.6);
+        border: 1px solid rgba(129,140,248,0.25);
+    }
+
+    h2 {
+        text-align: center;
+        color: #a5b4fc;
+        margin-bottom: 10px;
+    }
+
+    p.intro {
+        text-align: center;
+        font-size: 0.95em;
+        color: #cbd5f5;
+        margin-bottom: 25px;
+    }
+
+    form {
+        display: grid;
+        gap: 25px;
+    }
+
+    .question {
+        background: #0f172a;
+        padding: 20px;
+        border-radius: 15px;
+        border: 1px solid rgba(99,102,241,0.3);
+    }
+
+    .question h3 {
+        font-size: 1em;
+        margin-bottom: 10px;
+        color: #fbbf24;
+    }
+
+    .options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 20px;
+        margin-top: 5px;
+    }
+
+    label {
+        font-size: 0.9em;
+        color: #e5e7eb;
+    }
+
+    input[type="text"], select, textarea {
+        width: 100%;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid #374151;
+        background: #020817;
+        color: #e5e7eb;
+        font-size: 0.9em;
+        margin-top: 5px;
+    }
+
+    textarea {
+        resize: vertical;
+        min-height: 70px;
+    }
+
+    input[type="radio"], input[type="checkbox"] {
+        accent-color: #6366f1;
+        margin-right: 6px;
+    }
+
+    .scale {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+
+    .scale label {
+        text-align: center;
+        font-size: 0.85em;
+    }
+
+    button {
+        background: linear-gradient(135deg,#22c55e,#a5b4fc);
+        border: none;
+        padding: 12px 25px;
+        border-radius: 999px;
+        color: #020817;
+        font-weight: 600;
+        font-size: 0.9em;
+        cursor: pointer;
+        display: block;
+        margin: 10px auto 0;
+        box-shadow: 0 10px 30px rgba(15,23,42,1);
+        transition: 0.3s;
+    }
+
+    button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 15px 40px rgba(15,23,42,1);
+    }
+
+    footer {
+        text-align: center;
+        padding: 25px;
+        color: #9ca3af;
+        font-size: 0.8em;
+        background: #020817;
+    }
+
+    @media (max-width: 980px) {
+        .nav-container { flex-direction: column; gap: 10px; }
+        .menu { justify-content: center; }
+        .container { margin: 30px 20px; padding: 25px; }
+    }
+</style>
+</head>
+<body>
+
+<!-- MENÚ PRINCIPAL -->
+<header class="header">
+    <div class="nav-container">
+        <div class="logo">
+            <img src="LOGO.JPG" alt="Logo Carrera de Pedagogía" class="logo-img">
+            <div class="logo-text">
+                <h1>PEDAGOGÍA 4to CUATRIMESTRE</h1>
+                <p>Proyecto Integrador 26-1</p>
+            </div>
+        </div>
+        <nav>
+            <ul class="menu">
+                <li class="menu-item"><a href="index.html" class="menu-link">Inicio</a></li>
+
+                <li class="menu-item">
+                    <a href="educacional.html" class="menu-link">Educación Formal</a>
+                    <ul class="submenu">
+                        <li><a href="educacional.html#escuela-formal">Educación Formal</a></li>
+                        <li><a href="educacional.html#educacion-especial">Educación especial</a></li>
+                        <li><a href="educacional.html#investigacion-politicas">Investigación y políticas</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item">
+                    <a href="gestion-tecnologia.html" class="menu-link">Tecnología en la Gestión Educativa</a>
+                    <ul class="submenu">
+                        <li><a href="gestion-tecnologia.html#herramientas">Herramientas digitales</a></li>
+                        <li><a href="gestion-tecnologia.html#contenidos">Contenidos digitales</a></li>
+                        <li><a href="gestion-tecnologia.html#pedagogias">Pedagogías emergentes</a></li>
+                        <li><a href="gestion-tecnologia.html#evaluacion">Evaluación digital</a></li>
+                        <li><a href="gestion-tecnologia.html#desarrollo">Desarrollo profesional</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item">
+                    <a href="organizacional.html" class="menu-link">Organizacional</a>
+                    <ul class="submenu">
+                        <li><a href="organizacional.html#rrhh">Recursos humanos</a></li>
+                        <li><a href="organizacional.html#capacitacion">Capacitación</a></li>
+                        <li><a href="organizacional.html#cambio">Gestión del cambio</a></li>
+                        <li><a href="organizacional.html#cultura">Cultura institucional</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item">
+                    <a href="socio-comunitario.html" class="menu-link">Socio-Comunitario</a>
+                    <ul class="submenu">
+                        <li><a href="socio-comunitario.html#salud">Sector salud</a></li>
+                        <li><a href="socio-comunitario.html#reinsercion">Centros de reinserción</a></li>
+                        <li><a href="socio-comunitario.html#comunitaria">Comunitaria y social</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item">
+                    <a href="encuesta.html" class="menu-link active">Encuesta</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- ENCUESTA -->
+<div class="container">
+    <h2>Encuesta sobre la Pedagogía</h2>
+    <p class="intro">Responde de manera clara y sincera. Esta información se usa con fines académicos dentro del Proyecto Integrador 26-1.</p>
+
+    <form action="#" method="post">
+        <div class="question">
+            <h3>Nombre (opcional)</h3>
+            <input type="text" name="nombre" placeholder="Puedes dejarlo en blanco">
+        </div>
+
+        <div class="question">
+            <h3>1. Edad *</h3>
+            <select name="edad" required>
+                <option value="">Selecciona una opción</option>
+                <option>Menos de 18</option>
+                <option>18-22</option>
+                <option>23-27</option>
+                <option>28-35</option>
+                <option>Más de 35</option>
+            </select>
+        </div>
+
+        <div class="question">
+            <h3>2. Género *</h3>
+            <div class="options">
+                <label><input type="radio" name="genero" value="Femenino" required> Femenino</label>
+                <label><input type="radio" name="genero" value="Masculino"> Masculino</label>
+                <label><input type="radio" name="genero" value="Otro"> Otro / Prefiero no decirlo</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>3. Relación con la carrera de Pedagogía *</h3>
+            <select name="relacion" required>
+                <option value="">Selecciona una opción</option>
+                <option>Estudiante de Pedagogía</option>
+                <option>Docente</option>
+                <option>Estudiante de otra carrera</option>
+                <option>Profesional de otra área</option>
+                <option>Público en general</option>
+            </select>
+        </div>
+
+        <div class="question">
+            <h3>4. ¿Consideras que existen estereotipos de género en la elección de la carrera de Pedagogía? *</h3>
+            <div class="options">
+                <label><input type="radio" name="estereotipos" value="Sí" required> Sí</label>
+                <label><input type="radio" name="estereotipos" value="No"> No</label>
+                <label><input type="radio" name="estereotipos" value="No estoy seguro/a"> No estoy seguro/a</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>5. ¿En qué ámbitos crees que puede trabajar un pedagogo? *</h3>
+            <div class="options">
+                <label><input type="checkbox" name="ambitos[]" value="Escuelas"> Escuelas y universidades</label>
+                <label><input type="checkbox" name="ambitos[]" value="Empresas"> Empresas / organizaciones</label>
+                <label><input type="checkbox" name="ambitos[]" value="Comunitarios"> Proyectos comunitarios y sociales</label>
+                <label><input type="checkbox" name="ambitos[]" value="Salud"> Hospitales / sector salud</label>
+                <label><input type="checkbox" name="ambitos[]" value="Otros"> Otros</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>6. ¿Qué tan importante consideras el trabajo del pedagogo en la sociedad? *</h3>
+            <div class="scale">
+                <label><input type="radio" name="importancia" value="1" required>1<br>Poco</label>
+                <label><input type="radio" name="importancia" value="2">2</label>
+                <label><input type="radio" name="importancia" value="3">3</label>
+                <label><input type="radio" name="importancia" value="4">4</label>
+                <label><input type="radio" name="importancia" value="5">5<br>Muy alta</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>7. ¿Conoces las áreas de intervención del pedagogo (educacional, organizacional, socio-comunitaria, gestión y tecnología)? *</h3>
+            <div class="options">
+                <label><input type="radio" name="conoce" value="Sí" required> Sí</label>
+                <label><input type="radio" name="conoce" value="Parcialmente"> Parcialmente</label>
+                <label><input type="radio" name="conoce" value="No"> No</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>8. ¿Qué funciones asocias principalmente al pedagogo? *</h3>
+            <div class="options">
+                <label><input type="checkbox" name="funciones[]" value="Docencia"> Docencia en aula</label>
+                <label><input type="checkbox" name="funciones[]" value="Diseño"> Diseño de programas y materiales</label>
+                <label><input type="checkbox" name="funciones[]" value="Capacitación"> Capacitación y formación</label>
+                <label><input type="checkbox" name="funciones[]" value="Acompañamiento"> Acompañamiento socioemocional</label>
+                <label><input type="checkbox" name="funciones[]" value="Investigación"> Investigación o políticas educativas</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>9. ¿Consideras que el rol del pedagogo es suficientemente reconocido en tu entorno? *</h3>
+            <div class="options">
+                <label><input type="radio" name="reconocimiento" value="Sí" required> Sí</label>
+                <label><input type="radio" name="reconocimiento" value="No"> No</label>
+                <label><input type="radio" name="reconocimiento" value="Parcialmente"> Parcialmente</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>10. ¿Qué acciones crees que ayudarían a fortalecer la formación y visibilidad del pedagogo?</h3>
+            <textarea name="fortalecer" placeholder="Ejemplo: más prácticas en campo, campañas informativas, vinculación con comunidades..."></textarea>
+        </div>
+
+        <div class="question">
+            <h3>11. Comentarios adicionales</h3>
+            <textarea name="comentarios" placeholder="Escribe aquí cualquier comentario o sugerencia adicional."></textarea>
+        </div>
+
+        <button type="submit">Enviar encuesta</button>
+    </form>
+</div>
+
+<footer>
+    © 2025 Carrera de Pedagogía · Proyecto Integrador 26-1
+</footer>
+
+</body>
+</html>
